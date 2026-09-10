@@ -60,7 +60,7 @@
     const timer = setInterval(() => {
       pct = Math.min(100, pct + Math.random() * 18 + 6);
       if (bar) bar.style.width = pct + '%';
-      if (count) count.textContent = String(Math.round(pct)).padStart(3, '0');
+      if (count) count.textContent = Math.round(pct) + '%';
       if (pct >= 100) { clearInterval(timer); setTimeout(finish, 380); }
     }, 130);
     // Never trap the visitor if something stalls.
