@@ -236,11 +236,13 @@ body.nav-open .site-header{transform:none;color:#fff;background:transparent;box-
 }
 .main-nav a:not(.nav-cta):hover::after,
 .main-nav a.is-active:not(.nav-cta)::after{transform:scaleX(1);transform-origin:left}
-.nav-cta{
-  border:1px solid currentColor;padding:10px 18px;border-radius:999px;
+.main-nav .nav-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:11px 20px;line-height:1;
+  border:1px solid currentColor;border-radius:999px;
   transition:background .35s var(--ease),color .35s var(--ease),border-color .35s;
 }
-.nav-cta:hover{background:var(--nc-green);border-color:var(--nc-green);color:#fff}
+.main-nav .nav-cta:hover{background:var(--nc-green);border-color:var(--nc-green);color:#fff}
 
 /* Burger */
 .menu-toggle{
