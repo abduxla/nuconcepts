@@ -2,40 +2,69 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found | NuConcepts</title>
 <meta name="description" content="That page could not be found. Return to the NuConcepts homepage.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#34383f">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css">
+
+<!-- A 404 can be served at any depth, and on GitHub Pages the whole site sits
+     under /<repo>/. So this page carries its own styling rather than linking
+     out to style.css, and works standalone wherever it is served from. -->
 <style>
-  .lost{min-height:100svh;display:grid;place-items:center;text-align:center;background:var(--nc-charcoal);color:#fff}
-  .lost h1{font-family:var(--font-display);font-size:clamp(90px,22vw,260px);line-height:.82;margin:0}
-  .lost p{color:rgba(255,255,255,.7);max-width:44ch;margin:20px auto 30px}
-  .lost .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  :root{--green:#00a888;--charcoal:#34383f}
+  *,*::before,*::after{box-sizing:border-box}
+  body{
+    margin:0;min-height:100vh;display:grid;place-items:center;text-align:center;
+    background:var(--charcoal);color:#fff;padding:32px;
+    font-family:"DM Sans",Arial,Helvetica,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @supports (height:100svh){body{min-height:100svh}}
+  a{color:inherit;text-decoration:none}
+  .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.22em;font-weight:700;opacity:.6;margin:0}
+  h1{
+    font-family:"Instrument Serif",Georgia,"Times New Roman",serif;font-weight:400;
+    font-size:clamp(90px,22vw,240px);line-height:.82;letter-spacing:-.02em;margin:12px 0 0;
+  }
+  p.lede{color:rgba(255,255,255,.7);max-width:44ch;margin:18px auto 30px}
+  .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;
+    font-size:13px;font-weight:700;letter-spacing:.04em;
+    transition:background .35s cubic-bezier(.22,1,.36,1),color .35s,border-color .35s;
+    border:1px solid transparent;
+  }
+  .btn--solid{background:#fff;color:var(--charcoal)}
+  .btn--ghost{border-color:rgba(255,255,255,.45)}
+  .btn:hover{background:var(--green);color:#fff;border-color:var(--green)}
+  .mark{margin-top:44px;font-size:12px;letter-spacing:.15em;text-transform:uppercase;opacity:.45}
+  .mark b{color:var(--green)}
 </style>
 </head>
 <body>
-<div class="cursor" aria-hidden="true"></div>
-<div class="cursor-ring" aria-hidden="true"><span></span></div>
-
-<main class="lost">
-  <div class="wrap">
-    <p class="eyebrow" style="justify-content:center">Error 404</p>
+  <main>
+    <p class="eyebrow">Error 404</p>
     <h1>404</h1>
-    <p>That page has been moved, renamed or never existed. The work is all still here, though.</p>
+    <p class="lede">That page has been moved, renamed or never existed. The work is all still here, though.</p>
     <div class="links">
-      <a class="button button--light" href="/"><span>Back to homepage</span><span class="arrow" aria-hidden="true">→</span></a>
-      <a class="button button--ghost" href="/#portfolio"><span>See the projects</span></a>
+      <a class="btn btn--solid" id="home" href="/">Back to homepage <span aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn--ghost" id="work" href="/#portfolio">See the projects</a>
     </div>
-  </div>
-</main>
+    <p class="mark">Nu<b>Concepts</b> &middot; Sri Lanka</p>
+  </main>
 
-<script src="/site.js" defer></script>
+<script>
+  // On GitHub Pages the site lives under /<repo>/, everywhere else under /.
+  (function () {
+    var base = '/';
+    if (location.hostname.endsWith('github.io')) {
+      var first = location.pathname.split('/')[1];
+      if (first) base = '/' + first + '/';
+    }
+    document.getElementById('home').href = base;
+    document.getElementById('work').href = base + '#portfolio';
+  })();
+</script>
 </body>
 </html>
