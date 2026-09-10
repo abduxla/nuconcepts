@@ -137,10 +137,10 @@ body::after{
 .js [data-reveal].is-in{opacity:1;transform:none}
 
 /* Line-by-line display type reveal */
-.split-line{display:block;overflow:hidden;padding-bottom:.04em}
+.split-line{display:block;overflow:hidden;padding-bottom:.38em;margin-bottom:-.38em}
 .split-line > i{display:block;font-style:inherit}
 .js .split-line > i{
-  transform:translateY(105%);
+  transform:translateY(150%);
   transition:transform 1s var(--ease);transition-delay:var(--d,0ms);
 }
 .js .is-in .split-line > i{transform:none}
