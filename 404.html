@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add('js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found | NuConcepts</title>
+<meta name="description" content="That page could not be found. Return to the NuConcepts homepage.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#34383f">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<style>
+  .lost{min-height:100svh;display:grid;place-items:center;text-align:center;background:var(--nc-charcoal);color:#fff}
+  .lost h1{font-family:var(--font-display);font-size:clamp(90px,22vw,260px);line-height:.82;margin:0}
+  .lost p{color:rgba(255,255,255,.7);max-width:44ch;margin:20px auto 30px}
+  .lost .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+</style>
+</head>
+<body>
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"><span></span></div>
+
+<main class="lost">
+  <div class="wrap">
+    <p class="eyebrow" style="justify-content:center">Error 404</p>
+    <h1>404</h1>
+    <p>That page has been moved, renamed or never existed. The work is all still here, though.</p>
+    <div class="links">
+      <a class="button button--light" href="/"><span>Back to homepage</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="button button--ghost" href="/#portfolio"><span>See the projects</span></a>
+    </div>
+  </div>
+</main>
+
+<script src="/site.js" defer></script>
+</body>
+</html>
