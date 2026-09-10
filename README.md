@@ -35,33 +35,29 @@ node tools/build-projects.mjs
 That rewrites all five pages and regenerates `sitemap.xml`. Editing `projects/*.html` directly
 works, but the next build overwrites it.
 
-## Adding the photography
+## Photography — placeholders, must be replaced
 
-**The site currently ships with no photographs.** Every image slot falls back to a designed
-gradient panel labelled with its alt text, so nothing looks broken — but the site is only
-finished once real photos are in place.
+> **The 37 images in `assets/images/` are AI-generated placeholders, not photos
+> of the real projects. Read [PLACEHOLDERS.md](PLACEHOLDERS.md) before this goes
+> live or before the preview link leaves NuConcepts.**
 
-Drop JPEGs with these exact names into `assets/images/`:
+They are there so the design can be reviewed as a finished piece rather than a
+grid of empty boxes. Replacing them is a straight file swap — keep the filename,
+drop in the real photo, no code changes. The full path table is in
+[PLACEHOLDERS.md](PLACEHOLDERS.md).
 
-| File | Used for |
-| --- | --- |
-| `hero.jpg` | Homepage hero — landscape, ideally 2400px wide |
-| `workshop.jpg` | Workshop section — portrait or square works best |
-| `projects/miss-ceylon-hero.jpg` | Project card + project page hero |
-| `projects/miss-ceylon-01.jpg` … `-06.jpg` | That project's gallery (6 images) |
+Naming, in short: `hero.jpg`, `workshop.jpg`, and per project
+`projects/<slug>-hero.jpg` plus `projects/<slug>-01.jpg` … `-06.jpg`, where
+`<slug>` is `miss-ceylon`, `angel-beach`, `terrene-villas`, `abode-ahangama` or
+`the-fort-printers`.
 
-…and the same `-hero.jpg` plus `-01.jpg`…`-06.jpg` pattern for `angel-beach`,
-`terrene-villas`, `abode-ahangama` and `the-fort-printers`. **37 images in total.**
+Sizing: about **1920px on the long edge**, JPEG quality ~80 (the current set is
+~300KB each, ~12MB total). Gallery images 01 and 04 run full width, so give
+those the widest shots.
 
-Guidance:
-
-- Resize to about **2000–2400px** on the long edge and save at quality ~80. Anything straight
-  off a camera will make the site slow.
-- The gallery's 1st, 4th … image runs full width, so give those the widest shots.
-- Gallery captions live in `tools/build-projects.mjs` — change them to match the real photos.
-
-Prefer WebP? Convert the files and run
-`sed -i 's/\.jpg/\.webp/g' index.html tools/build-projects.mjs`, then rebuild.
+If an image file is missing the page still works: `site.js` hides the broken
+`<img>` and a designed gradient panel labelled with the alt text stands in, so
+real photos can be dropped in gradually.
 
 ## Before this goes live — please review
 

@@ -398,7 +398,7 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.38s}
 .project-card:hover .media img{transform:scale(1.06)}
 .project-card .veil{
   position:absolute;inset:0;z-index:2;
-  background:linear-gradient(180deg,transparent 34%,rgba(12,14,16,.78) 100%);
+  background:linear-gradient(180deg,transparent 26%,rgba(12,14,16,.55) 62%,rgba(12,14,16,.88) 100%);
   transition:opacity .5s;
 }
 .project-card:hover .veil{opacity:.92}
@@ -722,7 +722,7 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.38s}
 /* Shared gradient veil (project cards and the next-project banner) --------- */
 .veil{
   position:absolute;inset:0;z-index:2;
-  background:linear-gradient(180deg,transparent 34%,rgba(12,14,16,.78) 100%);
+  background:linear-gradient(180deg,transparent 26%,rgba(12,14,16,.55) 62%,rgba(12,14,16,.88) 100%);
   transition:opacity .5s;
 }
 
