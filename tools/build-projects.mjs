@@ -128,6 +128,15 @@ const head = (p, nextName) => `<!doctype html>
 <head>
 <meta charset="utf-8">
 <script>document.documentElement.classList.add('js');</script>
+<script>
+/* Preview-only noindex. This build is served both from the GitHub Pages
+   preview and, later, from nuconceptstore.com. A static robots meta tag would
+   follow it to production and deindex the real site, so the tag is added only
+   on the *.github.io preview host. Nothing to remember to remove at launch. */
+if (location.hostname.endsWith('github.io')) {
+  document.head.insertAdjacentHTML('beforeend', '<meta name="robots" content="noindex,nofollow">');
+}
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${strip(p.name)} — ${strip(p.type)}, ${strip(p.location)} | NuConcepts</title>
 <meta name="description" content="${strip(p.lead)} Interior design and bespoke furniture by NuConcepts, Sri Lanka.">
