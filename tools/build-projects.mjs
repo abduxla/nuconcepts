@@ -129,6 +129,17 @@ const head = (p, nextName) => `<!doctype html>
 <meta charset="utf-8">
 <script>document.documentElement.classList.add('js');</script>
 <script>
+/* Flags broken images. Attached before any <img> is parsed, so no error event
+   can be missed. site.js turns the flag into the designed fallback panel.
+   A "complete && naturalWidth === 0" sweep cannot be used instead: Chrome
+   reports exactly that for lazy images it has merely deferred, which silently
+   replaced good photographs with "missing image" panels on a cold load. */
+document.addEventListener('error', function (e) {
+  var t = e.target;
+  if (t && t.tagName === 'IMG') t.setAttribute('data-img-error', '1');
+}, true);
+</script>
+<script>
 /* Preview-only noindex. This build is served both from the GitHub Pages
    preview and, later, from nuconceptstore.com. A static robots meta tag would
    follow it to production and deindex the real site, so the tag is added only

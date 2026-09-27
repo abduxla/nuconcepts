@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <script>document.documentElement.classList.add('js');</script>
 <script>
+/* Flags broken images. Attached before any <img> is parsed, so no error event
+   can be missed. site.js turns the flag into the designed fallback panel.
+   A `complete && naturalWidth === 0` sweep cannot be used instead: Chrome
+   reports exactly that for lazy images it has merely deferred, which silently
+   replaced good photographs with "missing image" panels on a cold load. */
+document.addEventListener('error', function (e) {
+  var t = e.target;
+  if (t && t.tagName === 'IMG') t.setAttribute('data-img-error', '1');
+}, true);
+</script>
+<script>
 /* Preview-only noindex. This build is served both from the GitHub Pages
    preview and, later, from nuconceptstore.com. A static robots meta tag would
    follow it to production and deindex the real site, so the tag is added only
@@ -102,6 +113,8 @@ if (location.hostname.endsWith('github.io')) {
 <section class="hero">
   <div class="hero-bg" data-parallax="0.18">
     <img src="assets/images/hero.jpg" alt="Bespoke interior by NuConcepts in Sri Lanka" fetchpriority="high">
+    <video class="hero-video" data-hero-video="assets/video/hero.mp4"
+           muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
   </div>
   <div class="hero-content" data-reveal="fade">
     <p class="eyebrow">NuConcepts · Furniture &amp; Interior Solutions · Sri Lanka</p>
@@ -163,6 +176,52 @@ if (location.hostname.endsWith('github.io')) {
         <div class="stat"><b data-count="5" data-suffix="+">0</b><span>Selected projects</span></div>
         <div class="stat"><b data-count="100" data-suffix="%">0</b><span>Bespoke</span></div>
         <div class="stat"><b data-count="1">0</b><span>Colombo workshop</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BROWSE ---------------------------------------------------------------->
+<section class="section section--tight" id="spaces">
+  <div class="wrap">
+    <div class="section-head section-head--split" data-reveal="fade">
+      <p class="eyebrow">What are you looking for?</p>
+      <h2 class="serif">Start with<br>the space.</h2>
+    </div>
+
+    <!-- Swipe on touch, arrows on desktop. Cards that name a portfolio
+         category set the filter below and scroll to it; the rest are ordinary
+         in-page links. -->
+    <div class="rail" data-rail data-reveal>
+      <ul class="rail-track">
+        <li><a class="rail-card" href="#portfolio" data-go-filter="hotel">
+          <span class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-hero.jpg" alt="Boutique hotel interior"></span>
+          <span class="rail-card__label">Boutique hotels <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a></li>
+        <li><a class="rail-card" href="#portfolio" data-go-filter="villa">
+          <span class="media"><img loading="lazy" src="assets/images/projects/terrene-villas-hero.jpg" alt="Private villa interior"></span>
+          <span class="rail-card__label">Private villas <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a></li>
+        <li><a class="rail-card" href="#portfolio" data-go-filter="fnb">
+          <span class="media"><img loading="lazy" src="assets/images/projects/angel-beach-hero.jpg" alt="Restaurant and beach club interior"></span>
+          <span class="rail-card__label">Restaurants &amp; bars <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a></li>
+        <li><a class="rail-card" href="#services">
+          <span class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-03.jpg" alt="Bespoke timber joinery detail"></span>
+          <span class="rail-card__label">Bespoke furniture <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a></li>
+        <li><a class="rail-card" href="#workshop">
+          <span class="media"><img loading="lazy" src="assets/images/workshop.jpg" alt="The NuConcepts workshop in Colombo"></span>
+          <span class="rail-card__label">The workshop <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a></li>
+        <li><a class="rail-card" href="#contact">
+          <span class="media"><img loading="lazy" src="assets/images/projects/the-fort-printers-01.jpg" alt="Heritage interior in Galle Fort"></span>
+          <span class="rail-card__label">Heritage fit-out <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        </a></li>
+      </ul>
+      <div class="rail-nav" aria-hidden="true">
+        <button type="button" class="rail-btn" data-rail-prev aria-label="Scroll left">&larr;</button>
+        <button type="button" class="rail-btn" data-rail-next aria-label="Scroll right">&rarr;</button>
       </div>
     </div>
   </div>

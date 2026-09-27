@@ -23,14 +23,15 @@
     box.classList.add('media--empty');
     if (!box.dataset.label) box.dataset.label = img.alt || 'Photography to follow';
   };
+  // The error event is the only trustworthy signal. Errors fired before this
+  // script ran were flagged by the inline snippet in <head>; everything after
+  // is caught live here.
   document.addEventListener('error', (e) => {
     if (e.target instanceof HTMLImageElement) markEmpty(e.target);
   }, true);
-  const sweepImages = () => $$('img').forEach((img) => {
-    if (img.complete && img.naturalWidth === 0) markEmpty(img);
-  });
-  document.addEventListener('DOMContentLoaded', sweepImages);
-  window.addEventListener('load', sweepImages);
+  const applyFlagged = () => $$('img[data-img-error]').forEach(markEmpty);
+  document.addEventListener('DOMContentLoaded', applyFlagged);
+  window.addEventListener('load', applyFlagged);
 
   /* ----------------------------------------------------------------------
      Preloader
@@ -549,6 +550,73 @@
   };
 
   /* ----------------------------------------------------------------------
+     Hero video
+     The still is the base layer. The video is only swapped in once the file
+     is confirmed playable, so a missing asset, a blocked autoplay or a data
+     saver simply leaves the photograph showing.
+     -------------------------------------------------------------------- */
+  const initHeroVideo = () => {
+    const video = $('.hero-video');
+    if (!video || reduced) return;
+    const src = video.dataset.heroVideo;
+    if (!src) return;
+
+    video.muted = true;               // autoplay is only allowed when muted
+    video.addEventListener('canplay', () => {
+      const bg = video.closest('.hero-bg');
+      const playing = video.play();
+      if (playing && playing.catch) playing.catch(() => {});
+      if (bg) bg.classList.add('video-on');
+    }, { once: true });
+    video.addEventListener('error', () => {}, { once: true });
+
+    video.src = src;
+    video.load();
+  };
+
+  /* ----------------------------------------------------------------------
+     Horizontal rails
+     -------------------------------------------------------------------- */
+  const initRails = () => {
+    $$('[data-rail]').forEach((rail) => {
+      const track = $('.rail-track', rail);
+      if (!track) return;
+      const prev = $('[data-rail-prev]', rail);
+      const next = $('[data-rail-next]', rail);
+      const step = () => Math.max(240, track.clientWidth * 0.8);
+
+      const sync = () => {
+        const max = track.scrollWidth - track.clientWidth - 2;
+        if (prev) prev.disabled = track.scrollLeft <= 2;
+        if (next) next.disabled = track.scrollLeft >= max;
+      };
+      const nudge = (dir) => track.scrollBy({
+        left: dir * step(),
+        behavior: reduced ? 'auto' : 'smooth',
+      });
+
+      if (prev) prev.onclick = () => nudge(-1);
+      if (next) next.onclick = () => nudge(1);
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+  };
+
+  /* ----------------------------------------------------------------------
+     Rail cards that name a portfolio category drive the filter below them,
+     so the rail is a way into the work rather than a second control to learn.
+     -------------------------------------------------------------------- */
+  const initRailFilters = () => {
+    $$('[data-go-filter]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const btn = $('.filter[data-filter="' + link.getAttribute('data-go-filter') + '"]');
+        if (btn) btn.click();
+      });
+    });
+  };
+
+  /* ----------------------------------------------------------------------
      Boot
      -------------------------------------------------------------------- */
   const boot = () => {
@@ -556,6 +624,9 @@
     if (year) year.textContent = new Date().getFullYear();
 
     initCursor();
+    initHeroVideo();
+    initRails();
+    initRailFilters();
     initHeader();
     initNav();
     initParallax();

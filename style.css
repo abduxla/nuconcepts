@@ -146,7 +146,7 @@ body::after{
 .js .is-in .split-line > i{transform:none}
 
 /* Image mask wipe */
-.media{position:relative;overflow:hidden;background:var(--nc-cream)}
+.media{position:relative;display:block;overflow:hidden;background:var(--nc-cream)}
 .media img{width:100%;height:100%;object-fit:cover}
 .js .media::after{
   content:"";position:absolute;inset:0;background:var(--nc-cream);z-index:3;
@@ -741,3 +741,65 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.38s}
 /* Cards already carry their own title — no placeholder caption needed there */
 .project-card .media--empty::before,
 .next-project .media--empty::before{display:none}
+
+/* ==========================================================================
+   16. VIDEO HERO + HORIZONTAL RAILS
+   Patterns taken from the client's reference sites (boconcept.com,
+   onlyandco.com): a moving hero, and image rails you swipe through rather
+   than static grids.
+   ========================================================================== */
+
+/* The still is the base layer; the video only fades in once it can actually
+   play, so a missing or blocked file just leaves the photograph in place. */
+.hero-video{
+  position:absolute;inset:0;width:100%;height:112%;object-fit:cover;
+  opacity:0;transition:opacity 1s var(--ease);pointer-events:none;
+}
+.hero-bg.video-on .hero-video{opacity:1}
+.hero-bg.video-on img{opacity:0;transition:opacity 1s var(--ease)}
+
+/* Rails ------------------------------------------------------------------ */
+.rail{position:relative}
+.rail-track{
+  list-style:none;margin:0;padding:0 0 6px;display:flex;gap:var(--nc-gutter);
+  overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scroll-padding-left:0;scrollbar-width:none;
+}
+.rail-track::-webkit-scrollbar{display:none}
+.rail-track > li{flex:0 0 clamp(210px,32vw,288px);scroll-snap-align:start}
+.rail-card{display:block;position:relative}
+.rail-card .media{width:100%;aspect-ratio:3/4}
+/* Cards sitting off-screen to the right never intersect the viewport, so the
+   per-card mask would only lift mid-swipe. The rail fades in as a whole. */
+.rail-card .media::after{display:none}
+.rail-card .media img{transition:transform 1.1s var(--ease)}
+.rail-card:hover .media img{transform:scale(1.05)}
+.rail-card__label{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding-top:14px;font-size:var(--step-0);font-weight:500;letter-spacing:-.01em;
+}
+.rail-card__label .arrow{
+  opacity:0;transform:translateX(-6px);color:var(--nc-green);
+  transition:opacity .35s var(--ease),transform .35s var(--ease);
+}
+.rail-card:hover .rail-card__label .arrow,
+.rail-card:focus-visible .rail-card__label .arrow{opacity:1;transform:none}
+
+/* Arrow controls sit over the images and only exist for mouse users —
+   touch just swipes the rail. */
+.rail-nav{position:absolute;top:0;left:0;right:0;height:0;display:none}
+.rail-btn{
+  position:absolute;top:calc(clamp(210px,32vw,288px) * 0.667);transform:translateY(-50%);
+  width:44px;height:44px;border:0;border-radius:50%;cursor:pointer;
+  background:rgba(251,250,246,.94);color:var(--nc-charcoal);
+  box-shadow:0 2px 14px rgba(20,22,25,.14);
+  display:grid;place-items:center;font-size:15px;
+  transition:background .3s var(--ease),opacity .3s var(--ease),transform .3s var(--ease);
+}
+.rail-btn:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
+.rail-btn[disabled]{opacity:0;pointer-events:none}
+[data-rail-prev]{left:-14px}
+[data-rail-next]{right:-14px}
+@media (hover:hover) and (pointer:fine){
+  .rail-nav{display:block}
+}
