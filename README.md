@@ -75,6 +75,35 @@ Some content was written to fill the pages out and **needs checking by NuConcept
   headers. To use the real logo file instead, replace the `<span class="site-logo">…</span>`
   block with an `<img>` in `index.html` and in `tools/build-projects.mjs`.
 
+## Email sign-up — read this before promising updates
+
+There are two sign-up forms (a "Project notes" section above the footer, and a
+compact one in the footer). Both capture **first name + email** and validate
+before submitting.
+
+**By default neither builds a mailing list.** With no backend they compose an
+email to `sales@nuconceptstore.com` asking to be added, which someone then has
+to action by hand. That is fine for a trickle; it does not scale, and nobody
+gets an automatic welcome or an unsubscribe link.
+
+To make it a real list, sign up with a provider (Mailchimp, Buttondown,
+MailerLite, Formspree, Brevo) and add their form endpoint:
+
+```html
+<form class="signup-form" novalidate
+      data-subscribe="sales@nuconceptstore.com"
+      data-endpoint="https://your-provider-endpoint">
+```
+
+`site.js` posts the form as `FormData` to that endpoint, shows a success
+message in place, and falls back to the email route if the request fails. The
+field names sent are `name` and `email` — match those to the provider's
+expected fields, or rename them in `index.html`.
+
+Note that a real list also brings obligations: consent wording, an unsubscribe
+link, and telling people what they are signing up for. The copy currently says
+"a few times a year" — keep that honest.
+
 ## The enquiry form
 
 There is no backend. A valid submission opens the visitor's mail client with the brief already

@@ -520,3 +520,26 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
   body{background:#fff}
   .js [data-reveal]{opacity:1 !important;transform:none !important}
 }
+
+/* ==========================================================================
+   16. SIGN-UP
+   Name + email, the pair onlyandco.com asks for. Works today by composing an
+   email; set data-endpoint on the form to post to a real list provider.
+   ========================================================================== */
+.signup{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center}
+.signup-form{display:grid;gap:10px}
+.signup-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:4px}
+.signup-foot .form-note{margin:0}
+
+/* Footer box: name and email side by side, button below. */
+.foot-signup{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.foot-signup .btn{grid-column:1/-1;justify-content:center}
+.foot-signup .form-status{grid-column:1/-1;margin-top:0}
+.foot-signup input[aria-invalid="true"]{border-color:#B4432E}
+
+@media (max-width:900px){
+  .signup{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .foot-signup{grid-template-columns:1fr}
+}

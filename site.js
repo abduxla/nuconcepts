@@ -333,19 +333,66 @@
      Footer sign-up — also mail-based, for the same reason
      -------------------------------------------------------------------- */
   const initSubscribe = () => {
+    const valid = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
     $$('[data-subscribe]').forEach((form) => {
-      form.addEventListener('submit', (e) => {
+      const status = $('.form-status', form);
+      const say = (msg) => { if (status) { status.textContent = msg; status.classList.add('is-on'); } };
+
+      const flag = (input, message) => {
+        const box = input.closest('.field');
+        if (box) {
+          box.classList.add('has-error');
+          const err = $('.err', box);
+          if (err) err.textContent = message;
+        } else {
+          input.setAttribute('aria-invalid', 'true');   // footer box has no .field wrapper
+        }
+        input.focus();
+      };
+
+      form.addEventListener('input', (e) => {
+        const box = e.target.closest('.field');
+        if (box) box.classList.remove('has-error');
+        e.target.removeAttribute('aria-invalid');
+      });
+
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const input = $('input[type="email"]', form);
-        const email = input ? input.value.trim() : '';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          if (input) input.focus();
+        const nameEl = form.elements.name;
+        const mailEl = form.elements.email;
+        const name = nameEl ? nameEl.value.trim() : '';
+        const email = mailEl ? mailEl.value.trim() : '';
+
+        if (nameEl && !name) { flag(nameEl, 'Please add your first name.'); return; }
+        if (!valid(email)) { flag(mailEl, 'Please enter a valid email address.'); return; }
+
+        // A real list provider, when one is configured.
+        const endpoint = form.getAttribute('data-endpoint');
+        if (endpoint) {
+          try {
+            const res = await fetch(endpoint, {
+              method: 'POST',
+              headers: { Accept: 'application/json' },
+              body: new FormData(form),
+            });
+            if (!res.ok) throw new Error(res.status);
+            form.reset();
+            say('Thanks' + (name ? ' ' + name : '') + ' — you are on the list.');
+          } catch (err) {
+            say('That did not go through. Please email ' + form.getAttribute('data-subscribe') + ' instead.');
+          }
           return;
         }
-        window.location.href = `mailto:${form.getAttribute('data-subscribe')}`
-          + `?subject=${encodeURIComponent('Project notes sign-up')}`
-          + `&body=${encodeURIComponent('Please add ' + email + ' to your project notes list.')}`;
-        if (input) input.value = '';
+
+        // Fallback with no backend: compose the email for the visitor to send.
+        window.location.href = 'mailto:' + form.getAttribute('data-subscribe')
+          + '?subject=' + encodeURIComponent('Project notes sign-up')
+          + '&body=' + encodeURIComponent(
+              ['Please add me to your project notes list.', '',
+               'Name: ' + (name || '-'), 'Email: ' + email].join('\n'));
+        form.reset();
+        say('Your email app is opening with the request ready to send.');
       });
     });
   };
