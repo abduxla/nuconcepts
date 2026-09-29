@@ -75,6 +75,22 @@ Some content was written to fill the pages out and **needs checking by NuConcept
   headers. To use the real logo file instead, replace the `<span class="site-logo">…</span>`
   block with an `<img>` in `index.html` and in `tools/build-projects.mjs`.
 
+## The hero
+
+`assets/video/hero.mp4` is a slot, not a file. Drop a clip in and the hero
+becomes a video hero with no other change — the still stays as the poster and
+the video only swaps in once it is confirmed playable, so a missing or blocked
+file never breaks the page.
+
+Until then the still is given the behaviour that makes the reference hero read
+as alive: the frame drifts very slowly while a warm highlight travels across
+it and the shadow side shifts against it, all in CSS. Those two layers switch
+themselves off the moment a real video plays, and `prefers-reduced-motion`
+disables them.
+
+Keep any supplied clip short, muted, and compressed — 1080p, a few seconds,
+looping, ideally under about 5 MB. A raw phone video will wreck load time.
+
 ## Email sign-up — read this before promising updates
 
 There are two sign-up forms (a "Project notes" section above the footer, and a

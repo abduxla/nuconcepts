@@ -139,9 +139,11 @@
     video.muted = true;                 // autoplay is only allowed when muted
     video.addEventListener('canplay', () => {
       const bg = video.closest('.hero-bg');
+      const hero = video.closest('.hero');
       const playing = video.play();
       if (playing && playing.catch) playing.catch(() => {});
       if (bg) bg.classList.add('video-on');
+      if (hero) hero.classList.add('video-on');   // switches off the CSS lighting
     }, { once: true });
     video.addEventListener('error', () => {}, { once: true });
 
@@ -479,6 +481,71 @@
   };
 
   /* ----------------------------------------------------------------------
+     Search
+     Small site, so the index is built from what is actually on the page —
+     section headings, project cards and service rows — rather than shipping
+     a separate data file that could drift out of date.
+     -------------------------------------------------------------------- */
+  const initSearch = () => {
+    const openBtn = $('#searchOpen');
+    const panel = $('#searchPanel');
+    const input = $('#searchInput');
+    const list = $('#searchResults');
+    if (!openBtn || !panel || !input || !list) return;
+
+    const base = location.pathname.includes('/projects/') ? '../' : '';
+    const index = [];
+    const add = (kind, label, href) => {
+      if (label && href && !index.some((r) => r.label === label)) index.push({ kind, label, href });
+    };
+
+    $$('section[id]').forEach((sec) => {
+      const h = $('h2', sec);
+      if (h) add('Section', h.textContent.trim(), base + 'index.html#' + sec.id);
+    });
+    $$('.work-card').forEach((card) => {
+      const h = $('h3', card);
+      if (h) add('Project', h.textContent.trim(), card.getAttribute('href'));
+    });
+    $$('.svc-head h3').forEach((h) => add('Service', h.textContent.trim(), base + 'index.html#services'));
+    $$('.note h3').forEach((h) => add('Guide', h.textContent.trim(), base + 'index.html#notes'));
+
+    const render = (q) => {
+      const term = q.trim().toLowerCase();
+      if (!term) { list.innerHTML = ''; return; }
+      const hits = index.filter((r) => r.label.toLowerCase().includes(term)).slice(0, 8);
+      list.innerHTML = hits.length
+        ? hits.map((r) => `<li><a href="${r.href}"><span class="kind">${r.kind}</span>${r.label}</a></li>`).join('')
+        : '<li class="empty">Nothing matched that. Try “hotel”, “villa”, “timber” or “workshop”.</li>';
+    };
+
+    const setOpen = (open) => {
+      document.body.classList.toggle('search-open', open);
+      panel.setAttribute('aria-hidden', String(!open));
+      openBtn.setAttribute('aria-expanded', String(open));
+      // the panel is still visibility:hidden for one frame while it animates
+      // in, and focus() is ignored on a hidden element
+      if (open) requestAnimationFrame(() => setTimeout(() => input.focus(), 30));
+      else { input.value = ''; list.innerHTML = ''; }
+    };
+
+    openBtn.addEventListener('click', () =>
+      setOpen(!document.body.classList.contains('search-open')));
+    const closeBtn = $('#searchClose');
+    if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
+    input.addEventListener('input', () => render(input.value));
+    list.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.classList.contains('search-open')) setOpen(false);
+    });
+    document.addEventListener('click', (e) => {
+      if (!document.body.classList.contains('search-open')) return;
+      if (!panel.contains(e.target) && !openBtn.contains(e.target)) setOpen(false);
+    });
+    setOpen(false);
+  };
+
+  /* ----------------------------------------------------------------------
      Scrollspy for the desktop nav
      -------------------------------------------------------------------- */
   const initSpy = () => {
@@ -524,6 +591,7 @@
     initForm();
     initSubscribe();
     initLightbox();
+    initSearch();
     initSpy();
     initReveal();
   };
