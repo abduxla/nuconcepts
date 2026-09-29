@@ -6,7 +6,7 @@
 <script>
 /* Flags broken images. Attached before any <img> is parsed, so no error event
    can be missed. site.js turns the flag into the designed fallback panel.
-   A `complete && naturalWidth === 0` sweep cannot be used instead: Chrome
+   A "complete && naturalWidth === 0" sweep cannot be used instead: Chrome
    reports exactly that for lazy images it has merely deferred, which silently
    replaced good photographs with "missing image" panels on a cold load. */
 document.addEventListener('error', function (e) {
@@ -26,7 +26,7 @@ if (location.hostname.endsWith('github.io')) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NuConcepts | Interior Design &amp; Custom Furniture, Sri Lanka</title>
 <meta name="description" content="NuConcepts is a Sri Lankan interior design and bespoke furniture studio. Custom interiors, furniture manufacturing and hospitality fit-outs — designed in Colombo, made in our workshop, installed island-wide.">
-<meta name="theme-color" content="#34383f">
+<meta name="theme-color" content="#F8F6F3">
 <link rel="canonical" href="https://nuconceptstore.com/">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
@@ -39,7 +39,7 @@ if (location.hostname.endsWith('github.io')) {
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
 <script type="application/ld+json">
@@ -61,7 +61,6 @@ if (location.hostname.endsWith('github.io')) {
 
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-
 <div class="progress" aria-hidden="true"></div>
 
 <header class="site-header">
@@ -70,26 +69,26 @@ if (location.hostname.endsWith('github.io')) {
       <i></i><i></i><i></i>
     </button>
     <nav class="main-nav" aria-label="Primary">
-      <a href="#about">Studio</a>
-      <a href="#portfolio">Portfolio</a>
+      <a href="#work">Work</a>
       <a href="#services">Services</a>
       <a href="#workshop">Workshop</a>
+      <a href="#about">Studio</a>
     </nav>
     <a class="site-logo" href="index.html" aria-label="NuConcepts — home">
       <span class="wordmark">Nu<em>Concepts</em></span>
     </a>
     <div class="header-actions">
-      <a class="nav-cta" href="#contact">Start a project</a>
+      <a class="nav-cta" href="#contact">Make an appointment</a>
     </div>
   </div>
 </header>
 
 <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
-  <a class="big serif" href="#about">Studio</a>
-  <a class="big serif" href="#portfolio">Portfolio</a>
-  <a class="big serif" href="#services">Services</a>
-  <a class="big serif" href="#workshop">Workshop</a>
-  <a class="big serif" href="#contact">Start a project</a>
+  <a class="big" href="#work">Work</a>
+  <a class="big" href="#services">Services</a>
+  <a class="big" href="#workshop">Workshop</a>
+  <a class="big" href="#about">Studio</a>
+  <a class="big" href="#contact">Make an appointment</a>
   <div class="nav-overlay-foot">
     <a href="mailto:sales@nuconceptstore.com">sales@nuconceptstore.com</a>
     <a href="tel:+94775579572">+94 77 557 9572</a>
@@ -101,121 +100,76 @@ if (location.hostname.endsWith('github.io')) {
 
 <!-- HERO ------------------------------------------------------------------>
 <section class="hero">
-  <div class="hero-bg" data-parallax="0.18">
-    <img src="assets/images/hero.jpg" alt="Bespoke interior by NuConcepts in Sri Lanka" fetchpriority="high">
+  <div class="hero-bg" data-parallax="0.14">
+    <img src="assets/images/hero.jpg" alt="Bespoke tropical interior by NuConcepts, Sri Lanka" fetchpriority="high">
     <video class="hero-video" data-hero-video="assets/video/hero.mp4"
            muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
   </div>
-  <div class="hero-content" data-reveal="fade">
-    <p class="eyebrow">NuConcepts · Furniture &amp; Interior Solutions · Sri Lanka</p>
-    <h1 class="serif">
-      <span class="split-line" style="--d:120ms"><i>Crafted from</i></span>
-      <span class="split-line" style="--d:260ms"><i>the island.</i></span>
-    </h1>
-    <div class="hero-copy">
-      <div>
-        <p>Bespoke interiors, custom furniture and hospitality fit-outs — designed in our studio,
-           made in our Colombo workshop and installed across Sri Lanka.</p>
-        <div class="hero-actions">
-          <a class="button button--light" href="#portfolio"><span>View the work</span><span class="arrow" aria-hidden="true">→</span></a>
-          <a class="button button--ghost" href="#contact"><span>Start a project</span></a>
-        </div>
-      </div>
-      <div class="hero-meta">
-        <span>Established <b>2018</b></span>
-        <span>Workshop <b>Colombo</b></span>
-        <span>Bespoke <b>100%</b></span>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
-</section>
-
-<!-- STUDIO ---------------------------------------------------------------->
-<section class="section" id="about">
-  <div class="wrap">
-    <div class="section-head" data-reveal="fade">
-      <h2>
-        <span class="split-line"><i>Where craft</i></span>
-        <span class="split-line"><i>meets coast.</i></span>
-      </h2>
-    </div>
-    <div class="intro-grid">
-      <div data-reveal>
-        <p class="intro-copy">NuConcepts is a <strong>Sri Lankan interior design and furniture studio</strong>
-          creating spaces for boutique hotels, villas, restaurants and private residences. From first sketch
-          to finished space, one team controls the process end to end.</p>
-        <p class="intro-sub">That single line of responsibility is the point. Because we design the space and
-          then build the furniture that goes into it, drawings do not get lost in translation between a designer,
-          a supplier and a contractor — and the person who specified a joint is the person who cuts it.</p>
-      </div>
-      <div class="stats" data-reveal style="--d:120ms">
-        <div class="stat"><b data-count="2018">0</b><span>Established</span></div>
-        <div class="stat"><b data-count="5" data-suffix="+">0</b><span>Selected projects</span></div>
-        <div class="stat"><b data-count="100" data-suffix="%">0</b><span>Bespoke</span></div>
-        <div class="stat"><b data-count="1">0</b><span>Colombo workshop</span></div>
-      </div>
+  <div class="hero-inner" data-reveal="fade">
+    <p class="hero-eyebrow">Designed, made and installed on the island</p>
+    <h1>Interiors built where they are drawn</h1>
+    <div class="hero-actions">
+      <a class="btn btn--light" href="#work">See the work <span class="btn__ico" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn--onphoto" href="#contact">Make an appointment <span class="btn__ico" aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 </section>
 
 <!-- BROWSE ---------------------------------------------------------------->
-<section class="section section--tight" id="spaces">
+<section class="section" id="browse">
   <div class="wrap">
-    <div class="section-head" data-reveal="fade">
+    <div class="head" data-reveal="fade">
       <h2>What are you looking for?</h2>
       <p class="lede">Start with the kind of space you have in mind.</p>
     </div>
 
-    <!-- Swipe on touch, arrows on desktop. Cards that name a portfolio
-         category set the filter below and scroll to it; the rest are ordinary
-         in-page links. -->
+    <!-- Swipe on touch, arrows and a progress bar on a mouse. Tiles that name
+         a portfolio category drive the filter below rather than adding a
+         second control to learn. -->
     <div class="rail" data-rail data-reveal>
       <ul class="rail-track">
-        <li><a class="rail-card" href="#portfolio" data-go-filter="hotel">
+        <li><a class="tile zoom" href="#work" data-go-filter="hotel">
           <span class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-hero.jpg" alt="Boutique hotel interior"></span>
-          <span class="rail-card__label">Boutique hotels <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          <span class="tile__label">Boutique hotels <i aria-hidden="true">&rarr;</i></span>
         </a></li>
-        <li><a class="rail-card" href="#portfolio" data-go-filter="villa">
+        <li><a class="tile zoom" href="#work" data-go-filter="villa">
           <span class="media"><img loading="lazy" src="assets/images/projects/terrene-villas-hero.jpg" alt="Private villa interior"></span>
-          <span class="rail-card__label">Private villas <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          <span class="tile__label">Private villas <i aria-hidden="true">&rarr;</i></span>
         </a></li>
-        <li><a class="rail-card" href="#portfolio" data-go-filter="fnb">
+        <li><a class="tile zoom" href="#work" data-go-filter="fnb">
           <span class="media"><img loading="lazy" src="assets/images/projects/angel-beach-hero.jpg" alt="Restaurant and beach club interior"></span>
-          <span class="rail-card__label">Restaurants &amp; bars <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          <span class="tile__label">Restaurants &amp; bars <i aria-hidden="true">&rarr;</i></span>
         </a></li>
-        <li><a class="rail-card" href="#services">
+        <li><a class="tile zoom" href="#services">
           <span class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-03.jpg" alt="Bespoke timber joinery detail"></span>
-          <span class="rail-card__label">Bespoke furniture <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          <span class="tile__label">Bespoke furniture <i aria-hidden="true">&rarr;</i></span>
         </a></li>
-        <li><a class="rail-card" href="#workshop">
+        <li><a class="tile zoom" href="#workshop">
           <span class="media"><img loading="lazy" src="assets/images/workshop.jpg" alt="The NuConcepts workshop in Colombo"></span>
-          <span class="rail-card__label">The workshop <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          <span class="tile__label">The workshop <i aria-hidden="true">&rarr;</i></span>
         </a></li>
-        <li><a class="rail-card" href="#contact">
+        <li><a class="tile zoom" href="#work" data-go-filter="hotel">
           <span class="media"><img loading="lazy" src="assets/images/projects/the-fort-printers-01.jpg" alt="Heritage interior in Galle Fort"></span>
-          <span class="rail-card__label">Heritage fit-out <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          <span class="tile__label">Heritage fit-out <i aria-hidden="true">&rarr;</i></span>
         </a></li>
       </ul>
-      <div class="rail-nav" aria-hidden="true">
-        <button type="button" class="rail-btn" data-rail-prev aria-label="Scroll left">&larr;</button>
-        <button type="button" class="rail-btn" data-rail-next aria-label="Scroll right">&rarr;</button>
+      <div class="rail-foot">
+        <div class="rail-bar" aria-hidden="true"><i></i></div>
+        <div class="rail-btns">
+          <button type="button" class="rail-btn" data-rail-prev aria-label="Scroll left">&larr;</button>
+          <button type="button" class="rail-btn" data-rail-next aria-label="Scroll right">&rarr;</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PORTFOLIO ------------------------------------------------------------->
-<section class="section section--cream" id="portfolio">
+<!-- WORK ------------------------------------------------------------------>
+<section class="section section--white" id="work">
   <div class="wrap">
-    <div class="section-head" data-reveal="fade">
-      <div>
-        <h2>
-          <span class="split-line"><i>Interiors made</i></span>
-          <span class="split-line"><i>to belong.</i></span>
-        </h2>
-        <p class="lede">Boutique hotels, beach clubs and private villas along the south coast and in Colombo.</p>
-      </div>
+    <div class="head head--left" data-reveal="fade">
+      <h2>Spaces we have furnished</h2>
+      <p class="lede">Boutique hotels, beach clubs and private villas along the south coast and in Colombo.</p>
     </div>
 
     <div class="filters" role="group" aria-label="Filter projects" data-reveal="fade">
@@ -225,199 +179,104 @@ if (location.hostname.endsWith('github.io')) {
       <button class="filter" data-filter="fnb" aria-pressed="false">Restaurants &amp; bars</button>
     </div>
 
-    <div class="projects-grid">
-      <a class="project-card" href="projects/miss-ceylon.html" data-tags="hotel" data-cursor="View" data-reveal="fade">
-        <div class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-hero.jpg" alt="Miss Ceylon boutique hotel interior in Unawatuna, Sri Lanka"></div>
-        <div class="project-card-content">
-          <p class="kicker">Boutique hotel &middot; Unawatuna · 2024</p>
-          <h3>Miss Ceylon</h3>
-        </div>
+    <div class="work-grid">
+      <a class="work-card zoom" href="projects/miss-ceylon.html" data-tags="hotel" data-reveal>
+        <span class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-hero.jpg" alt="Miss Ceylon boutique hotel interior in Unawatuna, Sri Lanka"></span>
+        <p class="work-card__meta">Boutique hotel &middot; Unawatuna &middot; 2024</p>
+        <h3>Miss Ceylon</h3>
       </a>
+      <a class="work-card zoom" href="projects/angel-beach.html" data-tags="fnb" data-reveal style="--d:80ms">
+        <span class="media"><img loading="lazy" src="assets/images/projects/angel-beach-hero.jpg" alt="Angel Beach club and restaurant interior in Unawatuna, Sri Lanka"></span>
+        <p class="work-card__meta">Beach club &middot; Unawatuna &middot; 2024</p>
+        <h3>Angel Beach</h3>
+      </a>
+      <a class="work-card zoom" href="projects/terrene-villas.html" data-tags="villa" data-reveal style="--d:160ms">
+        <span class="media"><img loading="lazy" src="assets/images/projects/terrene-villas-hero.jpg" alt="Terrene Villas interior in Weligama and Kabalana, Sri Lanka"></span>
+        <p class="work-card__meta">Private villas &middot; Weligama &amp; Kabalana &middot; 2023</p>
+        <h3>Terrene Villas</h3>
+      </a>
+      <a class="work-card zoom" href="projects/abode-ahangama.html" data-tags="hotel" data-reveal>
+        <span class="media"><img loading="lazy" src="assets/images/projects/abode-ahangama-hero.jpg" alt="Abode Ahangama beachfront hotel interior in Ahangama, Sri Lanka"></span>
+        <p class="work-card__meta">Beachfront hotel &middot; Ahangama &middot; 2023</p>
+        <h3>Abode Ahangama</h3>
+      </a>
+      <a class="work-card zoom" href="projects/the-fort-printers.html" data-tags="hotel" data-reveal style="--d:80ms">
+        <span class="media"><img loading="lazy" src="assets/images/projects/the-fort-printers-hero.jpg" alt="The Fort Printers heritage hotel interior in Galle Fort, Sri Lanka"></span>
+        <p class="work-card__meta">Heritage hotel &middot; Galle Fort &middot; 2025</p>
+        <h3>The Fort Printers</h3>
+      </a>
+    </div>
+  </div>
+</section>
 
-      <a class="project-card" href="projects/angel-beach.html" data-tags="fnb" data-cursor="View" data-reveal="fade" style="--d:80ms">
-        <div class="media"><img loading="lazy" src="assets/images/projects/angel-beach-hero.jpg" alt="Angel Beach club and restaurant interior in Unawatuna, Sri Lanka"></div>
-        <div class="project-card-content">
-          <p class="kicker">Beach club &middot; Unawatuna · 2024</p>
-          <h3>Angel Beach</h3>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/terrene-villas.html" data-tags="villa" data-cursor="View" data-reveal="fade">
-        <div class="media"><img loading="lazy" src="assets/images/projects/terrene-villas-hero.jpg" alt="Terrene Villas interior in Weligama and Kabalana, Sri Lanka"></div>
-        <div class="project-card-content">
-          <p class="kicker">Private villas &middot; Weligama &amp; Kabalana · 2023</p>
-          <h3>Terrene Villas</h3>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/abode-ahangama.html" data-tags="hotel" data-cursor="View" data-reveal="fade" style="--d:80ms">
-        <div class="media"><img loading="lazy" src="assets/images/projects/abode-ahangama-hero.jpg" alt="Abode Ahangama beachfront hotel interior in Ahangama, Sri Lanka"></div>
-        <div class="project-card-content">
-          <p class="kicker">Beachfront hotel &middot; Ahangama · 2023</p>
-          <h3>Abode Ahangama</h3>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/the-fort-printers.html" data-tags="hotel" data-cursor="View" data-reveal="fade" style="--d:160ms">
-        <div class="media"><img loading="lazy" src="assets/images/projects/the-fort-printers-hero.jpg" alt="The Fort Printers heritage hotel interior in Galle Fort, Sri Lanka"></div>
-        <div class="project-card-content">
-          <p class="kicker">Heritage hotel &middot; Galle Fort · 2025</p>
-          <h3>The Fort Printers</h3>
-        </div>
-      </a>
+<!-- FEATURE --------------------------------------------------------------->
+<section class="section" id="workshop">
+  <div class="wrap">
+    <div class="head" data-reveal="fade">
+      <p class="kicker">Colombo</p>
+      <h2>Every piece begins in our workshop</h2>
+    </div>
+    <div class="feature" data-reveal>
+      <div class="media zoom"><img loading="lazy" src="assets/images/workshop.jpg" alt="Solid timber and a half-finished chair in the NuConcepts workshop, Colombo"></div>
+      <div class="feature-caption">
+        <p>Solid timber sourcing, joinery, upholstery and finishing all happen under
+           one roof, which is why a size can still change after the site survey.</p>
+        <a class="tlink" href="#services">What we make <i aria-hidden="true">&rarr;</i></a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- SERVICES -------------------------------------------------------------->
-<section class="section services" id="services">
+<section class="section section--stone" id="services">
   <div class="wrap">
-    <div class="section-head" data-reveal="fade">
-      <div>
-        <h2>
-          <span class="split-line"><i>End-to-end</i></span>
-          <span class="split-line"><i>interior solutions.</i></span>
-        </h2>
-        <p class="lede">Five services that together cover a project from an empty shell to a handed-over space.</p>
-      </div>
+    <div class="head" data-reveal="fade">
+      <h2>End-to-end interior solutions</h2>
+      <p class="lede">Five services that together cover a project from an empty shell to a handed-over space.</p>
     </div>
-
-    <div class="service-list">
-      <div class="service-row is-open" data-reveal="fade">
-        <button class="service-head" type="button">
-          <span class="num">01</span>
-          <h3>Interior Design</h3>
-          <span class="plus" aria-hidden="true"></span>
-        </button>
-        <div class="service-body"><div>
-          <div class="service-detail">
-            <p>Concept development, space planning, material selection and design direction for residential
-               and hospitality interiors in Sri Lanka. We work in drawings you can actually build from.</p>
-            <div class="service-tags">
-              <span>Concept development</span><span>Space planning</span>
-              <span>Material &amp; finish palettes</span><span>Lighting direction</span><span>3D visuals</span>
-            </div>
-          </div>
-        </div></div>
+    <div class="svc" data-reveal="fade">
+      <div class="svc-row is-open">
+        <button class="svc-head" type="button"><h3>Interior Design</h3><span class="plus" aria-hidden="true"></span></button>
+        <div class="svc-body"><div><div class="svc-detail">
+          <p>Concept development, space planning, material selection and design direction
+             for residential and hospitality interiors in Sri Lanka. We work in drawings
+             you can actually build from.</p>
+          <div class="svc-tags"><span>Concept development</span><span>Space planning</span><span>Material palettes</span><span>Lighting direction</span><span>3D visuals</span></div>
+        </div></div></div>
       </div>
-
-      <div class="service-row" data-reveal="fade">
-        <button class="service-head" type="button">
-          <span class="num">02</span>
-          <h3>Bespoke Manufacturing</h3>
-          <span class="plus" aria-hidden="true"></span>
-        </button>
-        <div class="service-body"><div>
-          <div class="service-detail">
-            <p>Custom furniture, solid timber joinery and upholstery made in our Colombo workshop to
-               project specification — not adapted from a catalogue.</p>
-            <div class="service-tags">
-              <span>Solid timber furniture</span><span>Fitted joinery</span>
-              <span>Upholstery</span><span>Outdoor &amp; poolside</span><span>Finishing</span>
-            </div>
-          </div>
-        </div></div>
+      <div class="svc-row">
+        <button class="svc-head" type="button"><h3>Bespoke Manufacturing</h3><span class="plus" aria-hidden="true"></span></button>
+        <div class="svc-body"><div><div class="svc-detail">
+          <p>Custom furniture, solid timber joinery and upholstery made in our Colombo
+             workshop to project specification — not adapted from a catalogue.</p>
+          <div class="svc-tags"><span>Solid timber furniture</span><span>Fitted joinery</span><span>Upholstery</span><span>Outdoor &amp; poolside</span><span>Finishing</span></div>
+        </div></div></div>
       </div>
-
-      <div class="service-row" data-reveal="fade">
-        <button class="service-head" type="button">
-          <span class="num">03</span>
-          <h3>Full Supply &amp; Install</h3>
-          <span class="plus" aria-hidden="true"></span>
-        </button>
-        <div class="service-body"><div>
-          <div class="service-detail">
-            <p>Procurement, logistics and on-site installation — a single point of responsibility from
-               design brief to handover, anywhere on the island.</p>
-            <div class="service-tags">
-              <span>Procurement</span><span>Islandwide logistics</span>
-              <span>Site installation</span><span>Snagging &amp; handover</span>
-            </div>
-          </div>
-        </div></div>
+      <div class="svc-row">
+        <button class="svc-head" type="button"><h3>Full Supply &amp; Install</h3><span class="plus" aria-hidden="true"></span></button>
+        <div class="svc-body"><div><div class="svc-detail">
+          <p>Procurement, logistics and on-site installation — a single point of
+             responsibility from design brief to handover, anywhere on the island.</p>
+          <div class="svc-tags"><span>Procurement</span><span>Islandwide logistics</span><span>Site installation</span><span>Snagging &amp; handover</span></div>
+        </div></div></div>
       </div>
-
-      <div class="service-row" data-reveal="fade">
-        <button class="service-head" type="button">
-          <span class="num">04</span>
-          <h3>Imported Products</h3>
-          <span class="plus" aria-hidden="true"></span>
-        </button>
-        <div class="service-body"><div>
-          <div class="service-detail">
-            <p>Curated Italian kitchens, marble, premium flooring and accessories sourced globally where a
-               project calls for something the island cannot supply.</p>
-            <div class="service-tags">
-              <span>Italian kitchens</span><span>Marble &amp; stone</span>
-              <span>Premium flooring</span><span>Sanitaryware</span><span>Accessories</span>
-            </div>
-          </div>
-        </div></div>
+      <div class="svc-row">
+        <button class="svc-head" type="button"><h3>Imported Products</h3><span class="plus" aria-hidden="true"></span></button>
+        <div class="svc-body"><div><div class="svc-detail">
+          <p>Curated Italian kitchens, marble, premium flooring and accessories sourced
+             globally where a project calls for something the island cannot supply.</p>
+          <div class="svc-tags"><span>Italian kitchens</span><span>Marble &amp; stone</span><span>Premium flooring</span><span>Sanitaryware</span><span>Accessories</span></div>
+        </div></div></div>
       </div>
-
-      <div class="service-row" data-reveal="fade">
-        <button class="service-head" type="button">
-          <span class="num">05</span>
-          <h3>Hospitality Fit-Out</h3>
-          <span class="plus" aria-hidden="true"></span>
-        </button>
-        <div class="service-body"><div>
-          <div class="service-detail">
-            <p>Specialist hotel, villa, restaurant and beach club interiors — guestrooms, public spaces,
-               F&amp;B areas and pool decks, detailed for heavy use in a tropical climate.</p>
-            <div class="service-tags">
-              <span>Guestrooms</span><span>Public areas</span>
-              <span>F&amp;B</span><span>Pool decks</span><span>FF&amp;E packages</span>
-            </div>
-          </div>
-        </div></div>
+      <div class="svc-row">
+        <button class="svc-head" type="button"><h3>Hospitality Fit-Out</h3><span class="plus" aria-hidden="true"></span></button>
+        <div class="svc-body"><div><div class="svc-detail">
+          <p>Specialist hotel, villa, restaurant and beach club interiors — guestrooms,
+             public spaces, F&amp;B areas and pool decks, detailed for heavy use in a
+             tropical climate.</p>
+          <div class="svc-tags"><span>Guestrooms</span><span>Public areas</span><span>F&amp;B</span><span>Pool decks</span><span>FF&amp;E packages</span></div>
+        </div></div></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- WORKSHOP -------------------------------------------------------------->
-<section class="workshop-grid" id="workshop">
-  <div class="workshop-image">
-    <div class="media"><img loading="lazy" src="assets/images/workshop.jpg" alt="The NuConcepts furniture workshop in Colombo, Sri Lanka"></div>
-  </div>
-  <div class="workshop-copy">
-    <h2 data-reveal="fade">
-      <span class="split-line"><i>Made in</i></span>
-      <span class="split-line"><i>Sri Lanka.</i></span>
-      <span class="split-line"><i>By us.</i></span>
-    </h2>
-    <p data-reveal="fade">Every piece begins in our Colombo workshop. From solid timber sourcing through
-       finishing and on-site installation, we control quality and craftsmanship at every stage.</p>
-    <div class="bullet" data-reveal>
-      <h4>Solid wood manufacturing</h4>
-      <p>Teak, jackwood and premium hardwoods — custom joinery and finishing to specification.</p>
-    </div>
-    <div class="bullet" data-reveal style="--d:90ms">
-      <h4>Upholstery &amp; soft furnishings</h4>
-      <p>Beds, sofas, outdoor seating and custom cushion fabrication.</p>
-    </div>
-    <div class="bullet" data-reveal style="--d:180ms">
-      <h4>Full project management</h4>
-      <p>Design, procurement, manufacture, logistics and installation under one team.</p>
-    </div>
-  </div>
-</section>
-
-<!-- STORY ------------------------------------------------------------------>
-<section class="section story">
-  <div class="wrap">
-    <div class="story-head" data-reveal="fade">
-      <h2>Eight years of making it on the island</h2>
-      <p>NuConcepts started in 2018 as a workshop that also drew. That order still
-         matters: the studio designs around what can actually be cut, joined and
-         finished in Colombo, and the people who specify a detail are the people who
-         make it.</p>
-      <a class="tlink" href="#workshop">Inside the workshop <span aria-hidden="true">&rarr;</span></a>
-    </div>
-    <div class="story-collage">
-      <figure class="story-a" data-reveal><div class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-03.jpg" alt="Hand-cut teak joinery detail"></div></figure>
-      <figure class="story-b" data-reveal style="--d:120ms"><div class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-06.jpg" alt="Timber, rattan, linen and stone material palette"></div></figure>
     </div>
   </div>
 </section>
@@ -425,208 +284,135 @@ if (location.hostname.endsWith('github.io')) {
 <!-- PROCESS --------------------------------------------------------------->
 <section class="section">
   <div class="wrap">
-    <div class="section-head" data-reveal="fade">
-      <div>
-        <h2>
-          <span class="split-line"><i>One team.</i></span>
-          <span class="split-line"><i>Four stages.</i></span>
-        </h2>
-        <p class="lede">The same people carry a project from the first site visit to the last snag.</p>
-      </div>
+    <div class="head" data-reveal="fade">
+      <h2>How a project runs</h2>
+      <p class="lede">The same people carry it from the first site visit to the last snag.</p>
     </div>
-    <div class="process-grid">
-      <div class="process-step">
-        <b>01</b><h3>Discover</h3>
-        <p>We understand the site, brand, operating needs, budget and desired atmosphere.</p>
-      </div>
-      <div class="process-step" style="--d:120ms">
-        <b>02</b><h3>Design</h3>
-        <p>Space planning, concept direction, material palettes and furniture detailing.</p>
-      </div>
-      <div class="process-step" style="--d:240ms">
-        <b>03</b><h3>Make</h3>
-        <p>Furniture and joinery move into production at our Colombo workshop.</p>
-      </div>
-      <div class="process-step" style="--d:360ms">
-        <b>04</b><h3>Install</h3>
-        <p>We coordinate delivery, placement, snagging and final handover on site.</p>
-      </div>
+    <div class="steps">
+      <div class="step" data-reveal><b>01</b><h3>Discover</h3><p>We understand the site, brand, operating needs, budget and desired atmosphere.</p></div>
+      <div class="step" data-reveal style="--d:90ms"><b>02</b><h3>Design</h3><p>Space planning, concept direction, material palettes and furniture detailing.</p></div>
+      <div class="step" data-reveal style="--d:180ms"><b>03</b><h3>Make</h3><p>Furniture and joinery move into production at our Colombo workshop.</p></div>
+      <div class="step" data-reveal style="--d:270ms"><b>04</b><h3>Install</h3><p>We coordinate delivery, placement, snagging and final handover on site.</p></div>
     </div>
   </div>
 </section>
 
-<!-- PRINCIPLES ------------------------------------------------------------>
-<section class="section section--cream">
+<!-- STORY ----------------------------------------------------------------->
+<section class="section section--white" id="about">
   <div class="wrap">
-    <div class="section-head" data-reveal="fade">
-      <h2>Six rules<br>we don't bend.</h2>
+    <div class="head head--left" data-reveal="fade">
+      <h2>Eight years of making it on the island</h2>
+      <p class="lede">NuConcepts started in 2018 as a workshop that also drew. That order
+         still matters: the studio designs around what can actually be cut, joined and
+         finished in Colombo, and the people who specify a detail are the people who make it.</p>
+      <p style="margin-top:18px"><a class="tlink" href="#contact">Talk to the studio <i aria-hidden="true">&rarr;</i></a></p>
     </div>
-    <div class="voice-track" data-reveal>
-      <figure class="voice is-on">
-        <blockquote class="serif">Design what can actually be built, in the workshop that will build it.</blockquote>
-        <figcaption><b>Buildability first</b>Principle 01</figcaption>
-      </figure>
-      <figure class="voice">
-        <blockquote class="serif">Detail for salt, humidity and sunlight before detailing for the photograph.</blockquote>
-        <figcaption><b>Made for the tropics</b>Principle 02</figcaption>
-      </figure>
-      <figure class="voice">
-        <blockquote class="serif">One team owns the project, so nothing is lost between designer and contractor.</blockquote>
-        <figcaption><b>Single responsibility</b>Principle 03</figcaption>
-      </figure>
-      <figure class="voice">
-        <blockquote class="serif">Source on the island wherever the island does it better.</blockquote>
-        <figcaption><b>Local first</b>Principle 04</figcaption>
-      </figure>
-      <figure class="voice">
-        <blockquote class="serif">A hotel chair is a working object. It has to survive a full season, then another.</blockquote>
-        <figcaption><b>Built for use</b>Principle 05</figcaption>
-      </figure>
-      <figure class="voice">
-        <blockquote class="serif">Handover is not the end of the job — the snag list is part of the job.</blockquote>
-        <figcaption><b>Finish properly</b>Principle 06</figcaption>
-      </figure>
-    </div>
-    <div class="voice-nav" role="tablist" aria-label="Principles">
-      <button class="voice-dot is-on" aria-label="Principle 1"></button>
-      <button class="voice-dot" aria-label="Principle 2"></button>
-      <button class="voice-dot" aria-label="Principle 3"></button>
-      <button class="voice-dot" aria-label="Principle 4"></button>
-      <button class="voice-dot" aria-label="Principle 5"></button>
-      <button class="voice-dot" aria-label="Principle 6"></button>
+    <div class="story-grid">
+      <figure class="story-a" data-reveal><div class="media zoom"><img loading="lazy" src="assets/images/projects/miss-ceylon-03.jpg" alt="Hand-cut teak joinery detail"></div></figure>
+      <figure class="story-b" data-reveal style="--d:120ms"><div class="media zoom"><img loading="lazy" src="assets/images/projects/miss-ceylon-06.jpg" alt="Timber, rattan, linen and stone material palette"></div></figure>
     </div>
   </div>
 </section>
 
-<!-- NOTES ------------------------------------------------------------------>
-<section class="section section--cream">
+<!-- NOTES ----------------------------------------------------------------->
+<section class="section">
   <div class="wrap">
-    <div class="section-head" data-reveal="fade">
+    <div class="head" data-reveal="fade">
       <h2>Good to know</h2>
       <p class="lede">A few things worth understanding before a project starts.</p>
     </div>
-    <div class="notes-grid">
+    <div class="notes">
       <article class="note" data-reveal>
-        <div class="media"><img loading="lazy" src="assets/images/projects/angel-beach-02.jpg" alt="Bar joinery in a beach club"></div>
+        <div class="media zoom"><img loading="lazy" src="assets/images/projects/angel-beach-02.jpg" alt="Bar joinery in a beach club"></div>
         <h3>What we need in order to quote</h3>
         <p>Drawings or rough dimensions, photographs of the space, a sense of the
-           atmosphere you are after and your target dates. If you have none of that,
-           a conversation and a site visit is enough to start.</p>
+           atmosphere you are after and your target dates.</p>
       </article>
       <article class="note" data-reveal style="--d:100ms">
-        <div class="media"><img loading="lazy" src="assets/images/projects/angel-beach-06.jpg" alt="Weathered teak and canvas in coastal daylight"></div>
+        <div class="media zoom"><img loading="lazy" src="assets/images/projects/angel-beach-06.jpg" alt="Weathered teak and canvas in coastal daylight"></div>
         <h3>Choosing timber for the coast</h3>
-        <p>Sea air and monsoon humidity decide more than taste does. We work in teak
-           and jackwood, detail joinery so it can move, and choose finishes that can
-           be recoated rather than replaced.</p>
+        <p>Sea air and monsoon humidity decide more than taste does. We detail joinery
+           so it can move, and choose finishes that can be recoated.</p>
       </article>
       <article class="note" data-reveal style="--d:200ms">
-        <div class="media"><img loading="lazy" src="assets/images/projects/abode-ahangama-03.jpg" alt="Restaurant seating in a beachfront hotel"></div>
+        <div class="media zoom"><img loading="lazy" src="assets/images/projects/abode-ahangama-03.jpg" alt="Restaurant seating in a beachfront hotel"></div>
         <h3>Designing for a working hotel</h3>
-        <p>A guestroom chair is a working object. Pieces are sized for housekeeping
-           as much as for the photograph, and specified so a single damaged part can
-           be remade without replacing the set.</p>
+        <p>A guestroom chair is a working object. Pieces are sized for housekeeping as
+           much as for the photograph.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- SEO COPY + FAQ -------------------------------------------------------->
-<section class="section">
+<!-- FAQ ------------------------------------------------------------------->
+<section class="section section--stone">
   <div class="wrap">
-    <div class="seo-copy" data-reveal>
-      <p class="eyebrow">Interior design Sri Lanka</p>
-      <h2>From Colombo to the south coast.</h2>
-      <p>Clients looking for an interior designer in Sri Lanka, custom furniture in Colombo or a complete
-         hotel and villa fit-out can work with NuConcepts as one integrated team. Our experience spans
-         boutique hotel interiors, villa interior design, restaurant furniture, bespoke joinery, hospitality
-         FF&amp;E and custom-made furniture for tropical environments.</p>
-      <p>We work directly with property owners, developers and architects throughout Sri Lanka, combining
-         local manufacturing with selected imported materials when the project calls for them.</p>
-      <div class="seo-links">
-        <span>Colombo</span><span>Galle &amp; Galle Fort</span><span>Unawatuna</span>
-        <span>Ahangama</span><span>Weligama</span><span>Mirissa</span><span>Islandwide</span>
-      </div>
+    <div class="head" data-reveal="fade">
+      <h2>Before you get in touch</h2>
     </div>
-  </div>
-</section>
-
-<section class="section section--tight">
-  <div class="wrap">
-    <div class="section-head" data-reveal="fade">
-      <h2>Before you<br>get in touch.</h2>
-    </div>
-    <div class="faq">
+    <div class="faq" data-reveal="fade">
       <div class="faq-item">
         <button class="faq-q" type="button">Do you take on both the design and the furniture?<span class="plus" aria-hidden="true"></span></button>
-        <div class="faq-a"><div><p>Yes — that is the way we prefer to work. We can also do either on its own:
-          design for a client who already has a manufacturer, or manufacture to another designer's drawings.</p></div></div>
+        <div class="faq-a"><div><p>Yes — that is the way we prefer to work. We can also do either on its own: design for a client who already has a manufacturer, or manufacture to another designer's drawings.</p></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button">Do you work outside Colombo?<span class="plus" aria-hidden="true"></span></button>
-        <div class="faq-a"><div><p>We work across Sri Lanka. Much of our hospitality work sits along the south
-          coast — Galle, Unawatuna, Ahangama, Weligama — with everything made in the Colombo workshop and
-          delivered and installed by our own team.</p></div></div>
+        <div class="faq-a"><div><p>We work across Sri Lanka. Much of our hospitality work sits along the south coast — Galle, Unawatuna, Ahangama, Weligama — with everything made in the Colombo workshop and installed by our own team.</p></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button">What size of project do you take on?<span class="plus" aria-hidden="true"></span></button>
-        <div class="faq-a"><div><p>From a single private residence through to a full hotel fit-out covering
-          guestrooms, public areas and F&amp;B. Tell us the scope and we will say honestly whether we are the
-          right studio for it.</p></div></div>
+        <div class="faq-a"><div><p>From a single private residence through to a full hotel fit-out covering guestrooms, public areas and F&amp;B. Tell us the scope and we will say honestly whether we are the right studio for it.</p></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" type="button">Can you match an existing scheme or heritage building?<span class="plus" aria-hidden="true"></span></button>
-        <div class="faq-a"><div><p>Yes. Working in older buildings — and matching existing timber, profiles
-          and finishes — is a regular part of the work, particularly in Galle Fort.</p></div></div>
+        <div class="faq-a"><div><p>Yes. Working in older buildings — and matching existing timber, profiles and finishes — is a regular part of the work, particularly in Galle Fort.</p></div></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q" type="button">What do you need from me to quote?<span class="plus" aria-hidden="true"></span></button>
-        <div class="faq-a"><div><p>Drawings or dimensions if you have them, photographs of the space, a sense of
-          the atmosphere you are after, and your target dates. If you have none of that, a conversation and a
-          site visit is enough to start.</p></div></div>
-      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEO PROSE ------------------------------------------------------------->
+<section class="section section--tight">
+  <div class="wrap prose" data-reveal="fade">
+    <h2>Interior design and custom furniture, Sri Lanka</h2>
+    <p>Clients looking for an interior designer in Sri Lanka, custom furniture in Colombo
+       or a complete hotel and villa fit-out can work with NuConcepts as one integrated
+       team — boutique hotel interiors, villa interior design, restaurant furniture,
+       bespoke joinery and hospitality FF&amp;E for tropical environments.</p>
+    <div class="tagcloud">
+      <span>Colombo</span><span>Galle &amp; Galle Fort</span><span>Unawatuna</span>
+      <span>Ahangama</span><span>Weligama</span><span>Mirissa</span><span>Islandwide</span>
     </div>
   </div>
 </section>
 
 <!-- CONTACT --------------------------------------------------------------->
-<section class="section section--cream" id="contact">
+<section class="section section--white" id="contact">
   <div class="wrap">
-    <div class="section-head" data-reveal="fade">
-      <div>
-        <h2>
-          <span class="split-line"><i>Tell us about</i></span>
-          <span class="split-line"><i>the space.</i></span>
-        </h2>
-        <p class="lede">Hotel, villa, restaurant, residence or commercial interior — we read every enquiry.</p>
-      </div>
+    <div class="head head--left" data-reveal="fade">
+      <h2>Make an appointment</h2>
+      <p class="lede">Hotel, villa, restaurant, residence or commercial interior — we read every enquiry.</p>
     </div>
-
     <div class="contact-grid">
       <div data-reveal>
         <form class="form" novalidate data-mailto="sales@nuconceptstore.com">
           <div class="field">
             <input id="f-name" name="name" type="text" placeholder=" " autocomplete="name" required>
-            <label for="f-name">Your name</label>
-            <span class="err"></span>
+            <label for="f-name">Your name</label><span class="err"></span>
           </div>
           <div class="field">
             <input id="f-email" name="email" type="email" placeholder=" " autocomplete="email" required>
-            <label for="f-email">Email address</label>
-            <span class="err"></span>
+            <label for="f-email">Email address</label><span class="err"></span>
           </div>
           <div class="field">
             <select id="f-project" name="project">
               <option value=""></option>
-              <option>Boutique hotel</option>
-              <option>Private villa</option>
-              <option>Restaurant or bar</option>
-              <option>Private residence</option>
-              <option>Commercial or office</option>
-              <option>Furniture only</option>
+              <option>Boutique hotel</option><option>Private villa</option>
+              <option>Restaurant or bar</option><option>Private residence</option>
+              <option>Commercial or office</option><option>Furniture only</option>
             </select>
             <label for="f-project">Project type</label>
-            <span class="chev" aria-hidden="true">▾</span>
+            <span class="chev" aria-hidden="true">&#9662;</span>
           </div>
           <div class="field">
             <input id="f-location" name="location" type="text" placeholder=" ">
@@ -634,55 +420,23 @@ if (location.hostname.endsWith('github.io')) {
           </div>
           <div class="field">
             <textarea id="f-message" name="message" placeholder=" " required></textarea>
-            <label for="f-message">About the project</label>
-            <span class="err"></span>
+            <label for="f-message">About the project</label><span class="err"></span>
           </div>
           <div class="form-foot">
-            <button class="button" type="submit"><span>Send enquiry</span><span class="arrow" aria-hidden="true">→</span></button>
+            <button class="btn btn--solid" type="submit">Send enquiry <span class="btn__ico" aria-hidden="true">&rarr;</span></button>
             <p class="form-note">Opens your mail app with the brief composed — nothing is sent to a third party.</p>
           </div>
           <p class="form-status" role="status"></p>
         </form>
       </div>
-
       <div data-reveal style="--d:120ms">
-        <p class="eyebrow is-plain">Direct</p>
-        <div class="contact-detail">
-          <div>
-            <h4>Email</h4>
-            <a href="mailto:sales@nuconceptstore.com">sales@nuconceptstore.com</a>
-          </div>
-          <div>
-            <h4>Phone &amp; WhatsApp</h4>
-            <a href="tel:+94775579572">+94 77 557 9572</a>
-          </div>
-          <div>
-            <h4>Instagram</h4>
-            <a href="https://instagram.com/nuconcepts_store" target="_blank" rel="noopener">@nuconcepts_store</a>
-          </div>
-          <div>
-            <h4>Studio &amp; workshop</h4>
-            <p>Colombo, Sri Lanka</p>
-          </div>
+        <div class="detail-list">
+          <div><h4>Email</h4><a href="mailto:sales@nuconceptstore.com">sales@nuconceptstore.com</a></div>
+          <div><h4>Phone &amp; WhatsApp</h4><a href="tel:+94775579572">+94 77 557 9572</a></div>
+          <div><h4>Instagram</h4><a href="https://instagram.com/nuconcepts_store" target="_blank" rel="noopener">@nuconcepts_store</a></div>
+          <div><h4>Studio &amp; workshop</h4><p>Colombo, Sri Lanka</p></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA ------------------------------------------------------------------->
-<section class="cta">
-  <div class="wrap cta-grid">
-    <div data-reveal="fade">
-      <p class="eyebrow">Have a space in mind?</p>
-      <h2>
-        <span class="split-line"><i>Make it</i></span>
-        <span class="split-line"><i>distinctly yours.</i></span>
-      </h2>
-    </div>
-    <div data-reveal style="--d:140ms">
-      <p>Tell us about your hotel, villa, restaurant, residence or commercial interior.</p>
-      <a class="button" href="#contact"><span>Start a project</span><span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -691,24 +445,32 @@ if (location.hostname.endsWith('github.io')) {
 
 <footer class="site-footer">
   <div class="wrap">
-    <div class="footer-tiles">
-      <a class="foot-tile" href="#workshop">
+    <div class="foot-tiles">
+      <a class="foot-tile zoom" href="#workshop">
         <span class="media"><img loading="lazy" src="assets/images/workshop.jpg" alt="The NuConcepts workshop in Colombo"></span>
-        <span class="foot-tile__label">See how it is made <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="foot-tile__label">See how it is made <i aria-hidden="true">&rarr;</i></span>
       </a>
-      <a class="foot-tile" href="#contact">
+      <a class="foot-tile zoom" href="#contact">
         <span class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-01.jpg" alt="Reception of a boutique hotel furnished by NuConcepts"></span>
-        <span class="foot-tile__label">Need help? Let&rsquo;s talk <span class="arrow" aria-hidden="true">&rarr;</span></span>
+        <span class="foot-tile__label">Need help? Let&rsquo;s talk <i aria-hidden="true">&rarr;</i></span>
       </a>
     </div>
-    <div class="footer-grid">
-      <div>
-        <span class="site-logo">
-          <span class="glyph" aria-hidden="true"></span>
-          <span class="wordmark">Nu<em>Concepts</em></span>
-        </span>
-        <p class="tagline">Furniture &amp; Interior Solutions · Sri Lanka · Est. 2018.
-           Designed, made and installed on the island.</p>
+
+    <div class="foot-grid">
+      <div class="foot-about">
+        <span class="site-logo"><span class="wordmark">Nu<em>Concepts</em></span></span>
+        <p>Furniture &amp; Interior Solutions &middot; Sri Lanka &middot; Est. 2018. Designed, made and installed on the island.</p>
+        <div class="socials">
+          <a href="https://instagram.com/nuconcepts_store" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="mailto:sales@nuconceptstore.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+          </a>
+          <a href="tel:+94775579572" aria-label="Phone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3.5h3.2l1.6 4-2 1.4a12 12 0 0 0 5.3 5.3l1.4-2 4 1.6V18a2.5 2.5 0 0 1-2.7 2.5A16.5 16.5 0 0 1 3.5 6.2 2.5 2.5 0 0 1 5 3.5z"/></svg>
+          </a>
+        </div>
       </div>
       <div>
         <h4>Studio</h4>
@@ -729,23 +491,24 @@ if (location.hostname.endsWith('github.io')) {
           <li><a href="projects/the-fort-printers.html">The Fort Printers</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="mailto:sales@nuconceptstore.com">sales@nuconceptstore.com</a></li>
-          <li><a href="tel:+94775579572">+94 77 557 9572</a></li>
-          <li><a href="https://instagram.com/nuconcepts_store" target="_blank" rel="noopener">@nuconcepts_store</a></li>
-        </ul>
+      <div class="newsletter">
+        <h4>Project notes</h4>
+        <p>Occasional notes on finished projects and what we are making.</p>
+        <form data-subscribe="sales@nuconceptstore.com">
+          <input type="email" name="email" placeholder="Your email" aria-label="Your email" required>
+          <button class="btn btn--solid" type="submit">Sign up</button>
+        </form>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© <span data-year>2026</span> NuConcepts</span>
+
+    <div class="foot-bottom">
+      <span>&copy; <span data-year>2026</span> NuConcepts</span>
       <span>Island made. Designed, made and installed in Sri Lanka.</span>
     </div>
   </div>
 </footer>
 
-<button class="to-top" aria-label="Back to top"><span aria-hidden="true">↑</span></button>
+<button class="to-top" aria-label="Back to top"><span aria-hidden="true">&uarr;</span></button>
 
 <script src="site.js" defer></script>
 </body>

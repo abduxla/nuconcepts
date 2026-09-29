@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NuConcepts — site.js
+   NuConcepts — site.js  (v3)
    No dependencies. Every module is optional: if its markup is absent on the
    current page, the module quietly does nothing.
    ========================================================================== */
@@ -9,13 +9,17 @@
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* ----------------------------------------------------------------------
      Missing photography
-     Real photos are dropped into assets/images/ later. Until a file exists
-     the <img> 404s, so we hide it and let the designed .media--empty
-     gradient stand in rather than showing a broken-image icon.
+     Real photos replace these later. Until a file exists the <img> 404s, so
+     the designed .media--empty panel stands in rather than a broken icon.
+
+     The error event is the only trustworthy signal: a
+     `complete && naturalWidth === 0` sweep also matches lazy images Chrome
+     has merely deferred, which hid good photographs on a cold load. Errors
+     fired before this script ran were flagged by the inline snippet in
+     <head>; everything after is caught live here.
      -------------------------------------------------------------------- */
   const markEmpty = (img) => {
     const box = img.closest('.media, .hero-bg');
@@ -23,9 +27,6 @@
     box.classList.add('media--empty');
     if (!box.dataset.label) box.dataset.label = img.alt || 'Photography to follow';
   };
-  // The error event is the only trustworthy signal. Errors fired before this
-  // script ran were flagged by the inline snippet in <head>; everything after
-  // is caught live here.
   document.addEventListener('error', (e) => {
     if (e.target instanceof HTMLImageElement) markEmpty(e.target);
   }, true);
@@ -34,82 +35,7 @@
   window.addEventListener('load', applyFlagged);
 
   /* ----------------------------------------------------------------------
-     Preloader
-     -------------------------------------------------------------------- */
-  // Resolves once the curtain is off the screen, so the hero animates for a
-  // visitor who can actually see it rather than behind the preloader.
-  const initPreloader = () => new Promise((done) => {
-    const el = $('.preloader');
-    if (!el) { done(); return; }
-
-    const bar = $('.bar i', el);
-    const count = $('.count', el);
-    let settled = false;
-    const finish = () => {
-      if (settled) return;
-      settled = true;
-      el.classList.add('is-done');
-      document.body.classList.remove('is-locked');
-      document.body.classList.add('is-ready');
-      setTimeout(() => el.remove(), 700);
-      done();
-    };
-    if (reduced) { finish(); return; }
-
-    document.body.classList.add('is-locked');
-    let pct = 0;
-    const timer = setInterval(() => {
-      pct = Math.min(100, pct + Math.random() * 18 + 6);
-      if (bar) bar.style.width = pct + '%';
-      if (count) count.textContent = Math.round(pct) + '%';
-      if (pct >= 100) { clearInterval(timer); setTimeout(finish, 380); }
-    }, 130);
-    // Never trap the visitor if something stalls.
-    setTimeout(() => { clearInterval(timer); finish(); }, 4200);
-  });
-
-  /* ----------------------------------------------------------------------
-     Custom cursor
-     -------------------------------------------------------------------- */
-  const initCursor = () => {
-    if (!finePointer || reduced) return;
-    const dot = $('.cursor');
-    const ring = $('.cursor-ring');
-    if (!dot || !ring) return;
-    const label = $('span', ring);
-
-    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
-    document.addEventListener('mousemove', (e) => {
-      x = e.clientX; y = e.clientY;
-      document.body.classList.add('cursor-ready');
-      dot.style.transform = `translate(${x}px, ${y}px)`;
-    }, { passive: true });
-
-    (function loop() {
-      rx += (x - rx) * 0.16;
-      ry += (y - ry) * 0.16;
-      ring.style.transform = `translate(${rx}px, ${ry}px)`;
-      requestAnimationFrame(loop);
-    })();
-
-    document.addEventListener('mouseover', (e) => {
-      const target = e.target.closest('[data-cursor], a, button, input, textarea, select');
-      document.body.classList.remove('cursor-hover', 'cursor-label');
-      if (!target) return;
-      const text = target.dataset ? target.dataset.cursor : null;
-      if (text) {
-        if (label) label.textContent = text;
-        document.body.classList.add('cursor-label');
-      } else {
-        document.body.classList.add('cursor-hover');
-      }
-    });
-    document.addEventListener('mouseleave', () => document.body.classList.remove('cursor-ready'));
-    document.addEventListener('mouseenter', () => document.body.classList.add('cursor-ready'));
-  };
-
-  /* ----------------------------------------------------------------------
-     Header: condensed state, hide on scroll down, scroll progress
+     Header — condensed state, hide on scroll down, progress, back to top
      -------------------------------------------------------------------- */
   const initHeader = () => {
     const header = $('.site-header');
@@ -122,8 +48,8 @@
       const y = window.scrollY;
       if (header) {
         header.classList.toggle('scrolled', y > 60);
-        const hide = y > 420 && y > last && !document.body.classList.contains('nav-open');
-        header.classList.toggle('is-hidden', hide);
+        header.classList.toggle('is-hidden',
+          y > 420 && y > last && !document.body.classList.contains('nav-open'));
       }
       if (progress) {
         const max = document.documentElement.scrollHeight - innerHeight;
@@ -139,11 +65,8 @@
     }, { passive: true });
     update();
 
-    if (toTop) {
-      toTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
-      });
-    }
+    if (toTop) toTop.addEventListener('click', () =>
+      window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }));
   };
 
   /* ----------------------------------------------------------------------
@@ -160,7 +83,8 @@
       toggle.setAttribute('aria-expanded', String(open));
       overlay.setAttribute('aria-hidden', String(!open));
     };
-    toggle.addEventListener('click', () => setOpen(!document.body.classList.contains('nav-open')));
+    toggle.addEventListener('click', () =>
+      setOpen(!document.body.classList.contains('nav-open')));
     $$('a', overlay).forEach((a) => a.addEventListener('click', () => setOpen(false)));
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && document.body.classList.contains('nav-open')) setOpen(false);
@@ -169,69 +93,60 @@
   };
 
   /* ----------------------------------------------------------------------
-     Reveal on scroll (+ counters, which fire when their tile appears)
+     Reveal on scroll
      -------------------------------------------------------------------- */
-  const runCounter = (el) => {
-    const target = parseFloat(el.dataset.count);
-    if (Number.isNaN(target) || el.dataset.counted) return;
-    el.dataset.counted = '1';
-    const suffix = el.dataset.suffix || '';
-    if (reduced) { el.textContent = target + suffix; return; }
-    const dur = 1400;
-    const start = performance.now();
-    const step = (now) => {
-      const t = Math.min(1, (now - start) / dur);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = Math.round(target * eased) + suffix;
-      if (t < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-
   const initReveal = () => {
-    // A .split-line only un-clips once an ancestor is revealed. If a heading
-    // was written without one it would stay invisible forever, so adopt it
-    // as its own reveal target.
-    $$('.split-line').forEach((line) => {
-      const heading = line.parentElement;
-      if (heading && !heading.closest('[data-reveal]')) heading.dataset.reveal = 'fade';
-    });
-
-    const targets = $$('[data-reveal], .media, .process-step');
+    const targets = $$('[data-reveal]');
     if (!targets.length) return;
 
     if (reduced || !('IntersectionObserver' in window)) {
       targets.forEach((el) => el.classList.add('is-in'));
-      $$('[data-count]').forEach(runCounter);
       return;
     }
-
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('is-in');
-        $$('[data-count]', entry.target).forEach(runCounter);
-        if (entry.target.matches('[data-count]')) runCounter(entry.target);
         io.unobserve(entry.target);
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
     targets.forEach((el) => io.observe(el));
 
-    // Anything already on screen is shown on the next frame rather than
-    // waiting on the observer, so the first viewport is never left blank.
-    requestAnimationFrame(() => {
-      targets.forEach((el) => {
-        if (el.classList.contains('is-in')) return;
-        const box = el.getBoundingClientRect();
-        if (box.top < innerHeight * 0.95 && box.bottom > 0) {
-          el.classList.add('is-in');
-          $$('[data-count]', el).forEach(runCounter);
-          if (el.matches('[data-count]')) runCounter(el);
-          io.unobserve(el);
-        }
-      });
-    });
+    // Anything already on screen shows on the next frame rather than waiting
+    // on the observer, so the first viewport is never left blank.
+    requestAnimationFrame(() => targets.forEach((el) => {
+      if (el.classList.contains('is-in')) return;
+      const box = el.getBoundingClientRect();
+      if (box.top < innerHeight * 0.95 && box.bottom > 0) {
+        el.classList.add('is-in');
+        io.unobserve(el);
+      }
+    }));
+  };
+
+  /* ----------------------------------------------------------------------
+     Hero video
+     The still is the base layer. The video is swapped in only once the file
+     is confirmed playable, so a missing asset, a blocked autoplay or a data
+     saver simply leaves the photograph showing.
+     -------------------------------------------------------------------- */
+  const initHeroVideo = () => {
+    const video = $('.hero-video');
+    if (!video || reduced) return;
+    const src = video.dataset.heroVideo;
+    if (!src) return;
+
+    video.muted = true;                 // autoplay is only allowed when muted
+    video.addEventListener('canplay', () => {
+      const bg = video.closest('.hero-bg');
+      const playing = video.play();
+      if (playing && playing.catch) playing.catch(() => {});
+      if (bg) bg.classList.add('video-on');
+    }, { once: true });
+    video.addEventListener('error', () => {}, { once: true });
+
+    video.src = src;
+    video.load();
   };
 
   /* ----------------------------------------------------------------------
@@ -244,8 +159,7 @@
     const update = () => {
       const y = window.scrollY;
       layers.forEach((el) => {
-        const speed = parseFloat(el.dataset.parallax) || 0.2;
-        el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+        el.style.transform = `translate3d(0, ${y * (parseFloat(el.dataset.parallax) || 0.15)}px, 0)`;
       });
       ticking = false;
     };
@@ -256,13 +170,50 @@
   };
 
   /* ----------------------------------------------------------------------
-     Marquee — duplicate the track so the loop has no gap
+     Horizontal rails — arrows, and a progress bar that tracks the scroll
      -------------------------------------------------------------------- */
-  const initMarquee = () => {
-    $$('.marquee').forEach((strip) => {
-      const track = $('.marquee-track', strip);
+  const initRails = () => {
+    $$('[data-rail]').forEach((rail) => {
+      const track = $('.rail-track', rail);
       if (!track) return;
-      strip.appendChild(track.cloneNode(true));
+      const prev = $('[data-rail-prev]', rail);
+      const next = $('[data-rail-next]', rail);
+      const bar = $('.rail-bar i', rail);
+      const step = () => Math.max(240, track.clientWidth * 0.8);
+
+      const sync = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        const ratio = max > 0 ? track.scrollLeft / max : 0;
+        if (prev) prev.disabled = track.scrollLeft <= 2;
+        if (next) next.disabled = track.scrollLeft >= max - 2;
+        if (bar) {
+          // the thumb is 30% wide, so it travels the remaining 70%
+          bar.style.transform = `translateX(${(ratio * 70 / 30) * 100}%)`;
+        }
+      };
+      const nudge = (dir) => track.scrollBy({
+        left: dir * step(),
+        behavior: reduced ? 'auto' : 'smooth',
+      });
+
+      if (prev) prev.onclick = () => nudge(-1);
+      if (next) next.onclick = () => nudge(1);
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+  };
+
+  /* ----------------------------------------------------------------------
+     Rail tiles that name a portfolio category drive the filter below them,
+     so the rail is a way into the work rather than a second control.
+     -------------------------------------------------------------------- */
+  const initRailFilters = () => {
+    $$('[data-go-filter]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const btn = $('.filter[data-filter="' + link.getAttribute('data-go-filter') + '"]');
+        if (btn) btn.click();
+      });
     });
   };
 
@@ -278,13 +229,11 @@
       btn.setAttribute('aria-expanded', String(row.classList.contains('is-open')));
       btn.addEventListener('click', () => {
         const willOpen = !row.classList.contains('is-open');
-        if (exclusive) {
-          rows.forEach((other) => {
-            other.classList.remove('is-open');
-            const b = $(btnSel, other);
-            if (b) b.setAttribute('aria-expanded', 'false');
-          });
-        }
+        if (exclusive) rows.forEach((other) => {
+          other.classList.remove('is-open');
+          const b = $(btnSel, other);
+          if (b) b.setAttribute('aria-expanded', 'false');
+        });
         row.classList.toggle('is-open', willOpen);
         btn.setAttribute('aria-expanded', String(willOpen));
       });
@@ -292,53 +241,24 @@
   };
 
   /* ----------------------------------------------------------------------
-     Portfolio filters
+     Work filters
      -------------------------------------------------------------------- */
   const initFilters = () => {
     const buttons = $$('.filter');
-    const cards = $$('.project-card');
+    const cards = $$('.work-card');
     if (!buttons.length || !cards.length) return;
 
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const want = btn.dataset.filter;
-        buttons.forEach((b) => {
-          b.classList.toggle('is-on', b === btn);
-          b.setAttribute('aria-pressed', String(b === btn));
-        });
-        cards.forEach((card) => {
-          const tags = (card.dataset.tags || '').split(/\s+/);
-          card.classList.toggle('is-filtered', want !== 'all' && !tags.includes(want));
-        });
+    buttons.forEach((btn) => btn.addEventListener('click', () => {
+      const want = btn.dataset.filter;
+      buttons.forEach((b) => {
+        b.classList.toggle('is-on', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
       });
-    });
-  };
-
-  /* ----------------------------------------------------------------------
-     Testimonial slider
-     -------------------------------------------------------------------- */
-  const initVoices = () => {
-    const wrap = $('.voice-track');
-    if (!wrap) return;
-    const slides = $$('.voice', wrap);
-    const dots = $$('.voice-dot');
-    if (slides.length < 2) return;
-
-    let index = 0;
-    let timer = null;
-    const show = (i) => {
-      index = (i + slides.length) % slides.length;
-      slides.forEach((s, n) => s.classList.toggle('is-on', n === index));
-      dots.forEach((d, n) => d.classList.toggle('is-on', n === index));
-    };
-    const play = () => { if (!reduced) timer = setInterval(() => show(index + 1), 6500); };
-    const stop = () => { if (timer) clearInterval(timer); timer = null; };
-
-    dots.forEach((dot, n) => dot.addEventListener('click', () => { stop(); show(n); play(); }));
-    wrap.addEventListener('mouseenter', stop);
-    wrap.addEventListener('mouseleave', play);
-    show(0);
-    play();
+      cards.forEach((card) => {
+        const tags = (card.dataset.tags || '').split(/\s+/);
+        card.classList.toggle('is-filtered', want !== 'all' && !tags.includes(want));
+      });
+    }));
   };
 
   /* ----------------------------------------------------------------------
@@ -371,11 +291,8 @@
       $$('.field', form).forEach((f) => f.classList.remove('has-error'));
 
       const data = new FormData(form);
-      const name = (data.get('name') || '').toString().trim();
-      const email = (data.get('email') || '').toString().trim();
-      const project = (data.get('project') || '').toString().trim();
-      const location = (data.get('location') || '').toString().trim();
-      const message = (data.get('message') || '').toString().trim();
+      const get = (k) => (data.get(k) || '').toString().trim();
+      const name = get('name'), email = get('email'), message = get('message');
 
       let ok = true;
       if (!name) { fail(form.elements.name, 'Please tell us your name.'); ok = false; }
@@ -394,8 +311,8 @@
       const body = [
         `Name: ${name}`,
         `Email: ${email}`,
-        `Project type: ${project || 'Not specified'}`,
-        `Location: ${location || 'Not specified'}`,
+        `Project type: ${get('project') || 'Not specified'}`,
+        `Location: ${get('location') || 'Not specified'}`,
         '',
         message,
       ].join('\n');
@@ -405,15 +322,36 @@
         + `&body=${encodeURIComponent(body)}`;
 
       if (status) {
-        status.textContent = 'Thanks ' + name + ' — your email client is opening with the brief ready to send. '
-          + 'If nothing happens, write to ' + mailTo + ' directly.';
+        status.textContent = `Thanks ${name} — your email client is opening with the brief ready to send. `
+          + `If nothing happens, write to ${mailTo} directly.`;
         status.classList.add('is-on');
       }
     });
   };
 
   /* ----------------------------------------------------------------------
-     Gallery lightbox
+     Footer sign-up — also mail-based, for the same reason
+     -------------------------------------------------------------------- */
+  const initSubscribe = () => {
+    $$('[data-subscribe]').forEach((form) => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = $('input[type="email"]', form);
+        const email = input ? input.value.trim() : '';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          if (input) input.focus();
+          return;
+        }
+        window.location.href = `mailto:${form.getAttribute('data-subscribe')}`
+          + `?subject=${encodeURIComponent('Project notes sign-up')}`
+          + `&body=${encodeURIComponent('Please add ' + email + ' to your project notes list.')}`;
+        if (input) input.value = '';
+      });
+    });
+  };
+
+  /* ----------------------------------------------------------------------
+     Gallery lightbox (project pages)
      -------------------------------------------------------------------- */
   const initLightbox = () => {
     const figures = $$('.gallery figure');
@@ -434,7 +372,7 @@
 
       if (media && media.classList.contains('media--empty')) {
         const stand = document.createElement('div');
-        stand.className = 'media media--empty is-in';
+        stand.className = 'media media--empty';
         stand.dataset.label = media.dataset.label || text;
         stage.appendChild(stand);
       } else if (img) {
@@ -483,7 +421,6 @@
       if (e.key === 'ArrowLeft') render(index - 1);
     });
 
-    // Swipe on touch devices
     let startX = null;
     box.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
     box.addEventListener('touchend', (e) => {
@@ -512,108 +449,13 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const link = map.get(entry.target);
-        if (!link) return;
-        if (entry.isIntersecting) {
+        if (link && entry.isIntersecting) {
           links.forEach((l) => l.classList.remove('is-active'));
           link.classList.add('is-active');
         }
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-
     map.forEach((_, section) => io.observe(section));
-  };
-
-  /* ----------------------------------------------------------------------
-     Page transition curtain
-     -------------------------------------------------------------------- */
-  const initTransitions = () => {
-    const curtain = $('.curtain');
-    if (!curtain || reduced) return;
-
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('a');
-      if (!link || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-      const href = link.getAttribute('href') || '';
-      if (!href || href.startsWith('#')) return;
-      if (link.target === '_blank' || link.hasAttribute('download')) return;
-      // mailto:, tel: and anything else that is not a page load
-      if (!['http:', 'https:', 'file:'].includes(link.protocol)) return;
-      if (link.protocol !== 'file:' && link.origin !== location.origin) return;
-
-      e.preventDefault();
-      curtain.classList.add('is-out');
-      setTimeout(() => { window.location.href = link.href; }, 480);
-    });
-
-    // Coming back via the browser cache should not leave the curtain down.
-    window.addEventListener('pageshow', () => curtain.classList.remove('is-out'));
-  };
-
-  /* ----------------------------------------------------------------------
-     Hero video
-     The still is the base layer. The video is only swapped in once the file
-     is confirmed playable, so a missing asset, a blocked autoplay or a data
-     saver simply leaves the photograph showing.
-     -------------------------------------------------------------------- */
-  const initHeroVideo = () => {
-    const video = $('.hero-video');
-    if (!video || reduced) return;
-    const src = video.dataset.heroVideo;
-    if (!src) return;
-
-    video.muted = true;               // autoplay is only allowed when muted
-    video.addEventListener('canplay', () => {
-      const bg = video.closest('.hero-bg');
-      const playing = video.play();
-      if (playing && playing.catch) playing.catch(() => {});
-      if (bg) bg.classList.add('video-on');
-    }, { once: true });
-    video.addEventListener('error', () => {}, { once: true });
-
-    video.src = src;
-    video.load();
-  };
-
-  /* ----------------------------------------------------------------------
-     Horizontal rails
-     -------------------------------------------------------------------- */
-  const initRails = () => {
-    $$('[data-rail]').forEach((rail) => {
-      const track = $('.rail-track', rail);
-      if (!track) return;
-      const prev = $('[data-rail-prev]', rail);
-      const next = $('[data-rail-next]', rail);
-      const step = () => Math.max(240, track.clientWidth * 0.8);
-
-      const sync = () => {
-        const max = track.scrollWidth - track.clientWidth - 2;
-        if (prev) prev.disabled = track.scrollLeft <= 2;
-        if (next) next.disabled = track.scrollLeft >= max;
-      };
-      const nudge = (dir) => track.scrollBy({
-        left: dir * step(),
-        behavior: reduced ? 'auto' : 'smooth',
-      });
-
-      if (prev) prev.onclick = () => nudge(-1);
-      if (next) next.onclick = () => nudge(1);
-      track.addEventListener('scroll', sync, { passive: true });
-      window.addEventListener('resize', sync);
-      sync();
-    });
-  };
-
-  /* ----------------------------------------------------------------------
-     Rail cards that name a portfolio category drive the filter below them,
-     so the rail is a way into the work rather than a second control to learn.
-     -------------------------------------------------------------------- */
-  const initRailFilters = () => {
-    $$('[data-go-filter]').forEach((link) => {
-      link.addEventListener('click', () => {
-        const btn = $('.filter[data-filter="' + link.getAttribute('data-go-filter') + '"]');
-        if (btn) btn.click();
-      });
-    });
   };
 
   /* ----------------------------------------------------------------------
@@ -623,25 +465,20 @@
     const year = $('[data-year]');
     if (year) year.textContent = new Date().getFullYear();
 
-    initCursor();
-    initHeroVideo();
-    initRails();
-    initRailFilters();
     initHeader();
     initNav();
+    initHeroVideo();
     initParallax();
-    initMarquee();
-    initAccordion('.service-row', '.service-head', '.service-body', true);
+    initRails();
+    initRailFilters();
+    initAccordion('.svc-row', '.svc-head', '.svc-body', true);
     initAccordion('.faq-item', '.faq-q', '.faq-a', false);
     initFilters();
-    initVoices();
     initForm();
+    initSubscribe();
     initLightbox();
     initSpy();
-    initTransitions();
-
-    // Reveals wait for the preloader so the first screen animates in view.
-    initPreloader().then(initReveal);
+    initReveal();
   };
 
   if (document.readyState === 'loading') {

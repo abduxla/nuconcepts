@@ -81,17 +81,40 @@ There is no backend. A valid submission opens the visitor's mail client with the
 composed to `sales@nuconceptstore.com`. To collect enquiries server-side instead, point the
 `<form class="form">` at Formspree / Netlify Forms / Basin and delete `initForm` from `site.js`.
 
+## Design system
+
+Rebuilt in v3 against the client's reference sites (boconcept.com,
+onlyandco.com). Two typefaces do the work:
+
+- **Figtree** carries structure — headings, nav, UI, body — the way BoConcept
+  uses its grotesque.
+- **Cormorant Garamond** is the accent voice — the hero line, project names,
+  the editorial card copy — the way onlyandco.com uses its serif.
+
+Design tokens sit at the top of `style.css`. The ground is a warm near-white
+(`--sand`) with `--stone` panels; colour is kept out of large type.
+
+Page grammar follows the references: a centred wordmark with nav left and the
+CTA right, centred section heads, horizontal image rails you swipe, and
+captions set under clean photographs rather than over gradient veils.
+
 ## Interaction
 
-All of it is in `site.js`, dependency-free, and each module no-ops if its markup is absent:
+All of it is in `site.js`, dependency-free, and each module no-ops if its
+markup is absent:
 
-preloader · custom cursor with contextual labels · condensing header that hides on scroll down ·
-scroll progress bar · scroll-reveal and line-by-line heading animation · hero parallax ·
-animated counters · looping marquee · portfolio filters · services and FAQ accordions ·
-principles slider · validated enquiry form · gallery lightbox (keyboard + swipe) ·
-scrollspy nav · full-screen mobile menu · page-transition curtain · back to top.
+video hero (still until a playable file exists) · condensing header that hides
+on scroll down · scroll progress · scroll reveals · hero parallax · horizontal
+rails with arrows and a progress bar · rail tiles that drive the work filter ·
+services and FAQ accordions · work filters · validated enquiry form · footer
+sign-up · gallery lightbox (keyboard + swipe) · scrollspy nav · full-screen
+mobile menu · back to top.
 
-`prefers-reduced-motion: reduce` disables every animation, the cursor and the preloader.
+`prefers-reduced-motion: reduce` disables the animation, the parallax and the
+hero video.
+
+The preloader, custom cursor, page-transition curtain and marquee from v2 were
+removed — neither reference has them.
 
 ## Browser support
 

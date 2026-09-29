@@ -123,207 +123,66 @@ const PROJECTS = [
 
 const strip = (s) => s.replace(/&amp;/g, '&');
 
-const head = (p, nextName) => `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<script>document.documentElement.classList.add('js');</script>
+const HEAD_SCRIPTS = `<script>document.documentElement.classList.add('js');</script>
 <script>
-/* Flags broken images. Attached before any <img> is parsed, so no error event
-   can be missed. site.js turns the flag into the designed fallback panel.
+/* Flags broken images before any <img> is parsed, so no error event is missed.
    A "complete && naturalWidth === 0" sweep cannot be used instead: Chrome
-   reports exactly that for lazy images it has merely deferred, which silently
-   replaced good photographs with "missing image" panels on a cold load. */
+   reports exactly that for lazy images it has merely deferred. */
 document.addEventListener('error', function (e) {
   var t = e.target;
   if (t && t.tagName === 'IMG') t.setAttribute('data-img-error', '1');
 }, true);
 </script>
 <script>
-/* Preview-only noindex. This build is served both from the GitHub Pages
-   preview and, later, from nuconceptstore.com. A static robots meta tag would
-   follow it to production and deindex the real site, so the tag is added only
-   on the *.github.io preview host. Nothing to remember to remove at launch. */
+/* Preview-only noindex, so it never follows the build to nuconceptstore.com. */
 if (location.hostname.endsWith('github.io')) {
   document.head.insertAdjacentHTML('beforeend', '<meta name="robots" content="noindex,nofollow">');
 }
-</script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${strip(p.name)} — ${strip(p.type)}, ${strip(p.location)} | NuConcepts</title>
-<meta name="description" content="${strip(p.lead)} Interior design and bespoke furniture by NuConcepts, Sri Lanka.">
-<meta name="theme-color" content="#34383f">
-<link rel="canonical" href="${SITE}/projects/${p.slug}.html">
-<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</script>`;
 
-<meta property="og:type" content="article">
-<meta property="og:title" content="${strip(p.name)} — ${strip(p.type)}, ${strip(p.location)} | NuConcepts">
-<meta property="og:description" content="${strip(p.lead)}">
-<meta property="og:url" content="${SITE}/projects/${p.slug}.html">
-<meta property="og:image" content="${SITE}/assets/images/projects/${p.hero}">
-<meta name="twitter:card" content="summary_large_image">
+const FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+  + '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+  + '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">';
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": "${strip(p.name)}",
-  "about": "${strip(p.type)} interior project in ${strip(p.location)}, Sri Lanka",
-  "dateCreated": "${p.year}",
-  "url": "${SITE}/projects/${p.slug}.html",
-  "creator": { "@type": "Organization", "name": "NuConcepts", "url": "${SITE}/" }
-}
-</script>
-</head>
-
-<body class="project-page">
-<a class="skip-link" href="#main">Skip to content</a>
-
-<div class="progress" aria-hidden="true"></div>
-
-<header class="site-header">
+const chrome = () => `<header class="site-header">
   <div class="wrap header-inner">
-    <a class="site-logo" href="../index.html" aria-label="NuConcepts — home">
-      <span class="glyph" aria-hidden="true"></span>
-      <span class="wordmark">Nu<em>Concepts</em></span>
-    </a>
-    <nav class="main-nav" aria-label="Primary">
-      <a href="../index.html#about">Studio</a>
-      <a href="../index.html#portfolio">Portfolio</a>
-      <a href="../index.html#services">Services</a>
-      <a href="../index.html#workshop">Workshop</a>
-      <a class="nav-cta" href="../index.html#contact">Start a project</a>
-    </nav>
     <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay">
       <i></i><i></i><i></i>
     </button>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#workshop">Workshop</a>
+      <a href="../index.html#about">Studio</a>
+    </nav>
+    <a class="site-logo" href="../index.html" aria-label="NuConcepts — home">
+      <span class="wordmark">Nu<em>Concepts</em></span>
+    </a>
+    <div class="header-actions">
+      <a class="nav-cta" href="../index.html#contact">Make an appointment</a>
+    </div>
   </div>
 </header>
 
 <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
-  <a class="big serif" href="../index.html#about">Studio</a>
-  <a class="big serif" href="../index.html#portfolio">Portfolio</a>
-  <a class="big serif" href="../index.html#services">Services</a>
-  <a class="big serif" href="../index.html#workshop">Workshop</a>
-  <a class="big serif" href="../index.html#contact">Start a project</a>
+  <a class="big" href="../index.html#work">Work</a>
+  <a class="big" href="../index.html#services">Services</a>
+  <a class="big" href="../index.html#workshop">Workshop</a>
+  <a class="big" href="../index.html#about">Studio</a>
+  <a class="big" href="../index.html#contact">Make an appointment</a>
   <div class="nav-overlay-foot">
     <a href="mailto:sales@nuconceptstore.com">sales@nuconceptstore.com</a>
     <a href="tel:+94775579572">+94 77 557 9572</a>
     <a href="https://instagram.com/nuconcepts_store" target="_blank" rel="noopener">Instagram</a>
   </div>
-</div>
-`;
+</div>`;
 
-const gallery = (p) => p.captions.map((caption, i) => {
-  const n = String(i + 1).padStart(2, '0');
-  return `      <figure data-reveal="fade">
-        <div class="media" data-cursor="Open">
-          <img loading="lazy" src="../assets/images/projects/${p.slug}-${n}.jpg" alt="${strip(p.name)} — ${strip(caption).toLowerCase()}">
-        </div>
-        <figcaption>${caption}</figcaption>
-      </figure>`;
-}).join('\n');
-
-const page = (p, next) => `${head(p)}
-<main id="main">
-
-<section class="project-hero">
-  <div class="hero-bg" data-parallax="0.16">
-    <img src="../assets/images/projects/${p.hero}" alt="${strip(p.name)} — ${strip(p.type).toLowerCase()} interior in ${strip(p.location)}, Sri Lanka" fetchpriority="high">
-  </div>
-  <div class="wrap" data-reveal="fade">
-    <p class="eyebrow">${p.type} · ${p.location} · ${p.year}</p>
-    <h1><span class="split-line"><i>${p.name}</i></span></h1>
-    <div class="project-meta">
-      <div><span>Type</span><b>${p.type}</b></div>
-      <div><span>Location</span><b>${p.location}</b></div>
-      <div><span>Year</span><b>${p.year}</b></div>
-      <div><span>Studio</span><b>NuConcepts</b></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
+const footer = () => `<footer class="site-footer">
   <div class="wrap">
-    <p class="breadcrumbs"><a href="../index.html">Home</a> / <a href="../index.html#portfolio">Portfolio</a> / ${p.name}</p>
-    <div class="project-intro">
-      <div data-reveal>
-        <h2>${p.heading}</h2>
-        <div class="spec-list">
-          <div><h4>Scope</h4><p>${p.scope}</p></div>
-          <div><h4>Services</h4><p>${p.services}</p></div>
-          <div><h4>Location</h4><p>${p.location}, Sri Lanka</p></div>
-          <div><h4>Completed</h4><p>${p.year}</p></div>
-        </div>
-      </div>
-      <div class="body" data-reveal style="--d:120ms">
-${p.body.map((para) => `        <p>${para}</p>`).join('\n')}
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--tight">
-  <div class="wrap">
-    <div class="gallery">
-${gallery(p)}
-    </div>
-  </div>
-</section>
-
-<a class="next-project" href="${next.slug}.html" data-cursor="Next">
-  <div class="media"><img loading="lazy" src="../assets/images/projects/${next.hero}" alt="${strip(next.name)} interior project"></div>
-  <span class="veil" aria-hidden="true"></span>
-  <div class="inner wrap">
-    <p class="eyebrow">Next project</p>
-    <h2>${next.name}</h2>
-    <span class="tlink">View project</span>
-  </div>
-</a>
-
-<section class="cta">
-  <div class="wrap cta-grid">
-    <div data-reveal="fade">
-      <p class="eyebrow">Have a space in mind?</p>
-      <h2>
-        <span class="split-line"><i>Make it</i></span>
-        <span class="split-line"><i>distinctly yours.</i></span>
-      </h2>
-    </div>
-    <div data-reveal style="--d:140ms">
-      <p>Tell us about your hotel, villa, restaurant, residence or commercial interior.</p>
-      <a class="button" href="../index.html#contact"><span>Start a project</span><span class="arrow" aria-hidden="true">→</span></a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<div class="lightbox" aria-hidden="true" role="dialog" aria-label="${strip(p.name)} gallery">
-  <button class="lb-btn lightbox-close" aria-label="Close gallery"><span aria-hidden="true">✕</span></button>
-  <div class="lightbox-stage"></div>
-  <div class="lightbox-bar wrap">
-    <span class="caption"></span>
-    <span class="lightbox-nav">
-      <button class="lb-btn lb-prev" aria-label="Previous image"><span aria-hidden="true">←</span></button>
-      <button class="lb-btn lb-next" aria-label="Next image"><span aria-hidden="true">→</span></button>
-    </span>
-  </div>
-</div>
-
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <span class="site-logo">
-          <span class="glyph" aria-hidden="true"></span>
-          <span class="wordmark">Nu<em>Concepts</em></span>
-        </span>
-        <p class="tagline">Furniture &amp; Interior Solutions · Sri Lanka · Est. 2018.
+    <div class="foot-grid">
+      <div class="foot-about">
+        <span class="site-logo"><span class="wordmark">Nu<em>Concepts</em></span></span>
+        <p>Furniture &amp; Interior Solutions &middot; Sri Lanka &middot; Est. 2018.
            Designed, made and installed on the island.</p>
       </div>
       <div>
@@ -350,14 +209,135 @@ ${PROJECTS.map((o) => `          <li><a href="${o.slug}.html">${o.name}</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© <span data-year>2026</span> NuConcepts</span>
+    <div class="foot-bottom">
+      <span>&copy; <span data-year>2026</span> NuConcepts</span>
       <span>Island made. Designed, made and installed in Sri Lanka.</span>
     </div>
   </div>
-</footer>
+</footer>`;
 
-<button class="to-top" aria-label="Back to top"><span aria-hidden="true">↑</span></button>
+const gallery = (p) => p.captions.map((caption, i) => {
+  const n = String(i + 1).padStart(2, '0');
+  return `      <figure data-reveal="fade">
+        <div class="media zoom">
+          <img loading="lazy" src="../assets/images/projects/${p.slug}-${n}.jpg" alt="${strip(p.name)} — ${strip(caption).toLowerCase()}">
+        </div>
+        <figcaption>${caption}</figcaption>
+      </figure>`;
+}).join('\n');
+
+const page = (p, next) => `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+${HEAD_SCRIPTS}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${strip(p.name)} — ${strip(p.type)}, ${strip(p.location)} | NuConcepts</title>
+<meta name="description" content="${strip(p.lead)} Interior design and bespoke furniture by NuConcepts, Sri Lanka.">
+<meta name="theme-color" content="#F8F6F3">
+<link rel="canonical" href="${SITE}/projects/${p.slug}.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="${strip(p.name)} — ${strip(p.type)}, ${strip(p.location)} | NuConcepts">
+<meta property="og:description" content="${strip(p.lead)}">
+<meta property="og:url" content="${SITE}/projects/${p.slug}.html">
+<meta property="og:image" content="${SITE}/assets/images/projects/${p.hero}">
+<meta name="twitter:card" content="summary_large_image">
+
+${FONTS}
+<link rel="stylesheet" href="../style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "${strip(p.name)}",
+  "about": "${strip(p.type)} interior project in ${strip(p.location)}, Sri Lanka",
+  "dateCreated": "${p.year}",
+  "url": "${SITE}/projects/${p.slug}.html",
+  "creator": { "@type": "Organization", "name": "NuConcepts", "url": "${SITE}/" }
+}
+</script>
+</head>
+
+<body class="project-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+
+${chrome()}
+
+<main id="main">
+
+<section class="p-hero">
+  <div class="hero-bg" data-parallax="0.12">
+    <img src="../assets/images/projects/${p.hero}" alt="${strip(p.name)} — ${strip(p.type).toLowerCase()} interior in ${strip(p.location)}, Sri Lanka" fetchpriority="high">
+  </div>
+  <div class="wrap" data-reveal="fade">
+    <h1>${p.name}</h1>
+    <div class="p-meta">
+      <div><span>Type</span><b>${p.type}</b></div>
+      <div><span>Location</span><b>${p.location}</b></div>
+      <div><span>Year</span><b>${p.year}</b></div>
+      <div><span>Studio</span><b>NuConcepts</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <p class="crumbs"><a href="../index.html">Home</a> / <a href="../index.html#work">Work</a> / ${p.name}</p>
+    <div class="p-intro">
+      <div data-reveal>
+        <h2>${p.heading}</h2>
+        <div class="specs">
+          <div><h4>Scope</h4><p>${p.scope}</p></div>
+          <div><h4>Services</h4><p>${p.services}</p></div>
+          <div><h4>Location</h4><p>${p.location}, Sri Lanka</p></div>
+          <div><h4>Completed</h4><p>${p.year}</p></div>
+        </div>
+      </div>
+      <div class="body" data-reveal style="--d:120ms">
+${p.body.map((para) => `        <p>${para}</p>`).join('\n')}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="gallery">
+${gallery(p)}
+    </div>
+  </div>
+</section>
+
+<a class="next-project" href="${next.slug}.html">
+  <div class="media"><img loading="lazy" src="../assets/images/projects/${next.hero}" alt="${strip(next.name)} interior project"></div>
+  <div class="inner wrap">
+    <p class="kicker" style="color:rgba(255,255,255,.7);font-family:var(--serif);font-style:italic">Next project</p>
+    <h2>${next.name}</h2>
+    <span class="btn btn--onphoto">View project <span class="btn__ico" aria-hidden="true">&rarr;</span></span>
+  </div>
+</a>
+
+</main>
+
+<div class="lightbox" aria-hidden="true" role="dialog" aria-label="${strip(p.name)} gallery">
+  <button class="lb-btn lightbox-close" aria-label="Close gallery"><span aria-hidden="true">&#10005;</span></button>
+  <div class="lightbox-stage"></div>
+  <div class="lightbox-bar wrap">
+    <span class="caption"></span>
+    <span class="lightbox-nav">
+      <button class="lb-btn lb-prev" aria-label="Previous image"><span aria-hidden="true">&larr;</span></button>
+      <button class="lb-btn lb-next" aria-label="Next image"><span aria-hidden="true">&rarr;</span></button>
+    </span>
+  </div>
+</div>
+
+${footer()}
+
+<button class="to-top" aria-label="Back to top"><span aria-hidden="true">&uarr;</span></button>
 
 <script src="../site.js" defer></script>
 </body>
@@ -367,8 +347,7 @@ ${PROJECTS.map((o) => `          <li><a href="${o.slug}.html">${o.name}</a></li>
 mkdirSync(resolve(ROOT, 'projects'), { recursive: true });
 PROJECTS.forEach((p, i) => {
   const next = PROJECTS[(i + 1) % PROJECTS.length];
-  const file = resolve(ROOT, 'projects', `${p.slug}.html`);
-  writeFileSync(file, page(p, next), 'utf8');
+  writeFileSync(resolve(ROOT, 'projects', `${p.slug}.html`), page(p, next), 'utf8');
   console.log('wrote projects/' + p.slug + '.html');
 });
 
