@@ -219,13 +219,14 @@ body.cursor-invert .cursor-ring{border-color:rgba(255,255,255,.55)}
 }
 .site-header.is-hidden{transform:translateY(-104%)}
 body.nav-open .site-header{transform:none;color:#fff;background:transparent;box-shadow:none}
-.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.header-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+.header-actions{display:flex;justify-content:flex-end;align-items:center;gap:14px}
 
 /* Typographic wordmark — inherits the header colour, so no dark/light image swap */
-.site-logo{display:inline-flex;align-items:center;gap:10px;line-height:1}
+.site-logo{display:inline-flex;align-items:center;justify-content:center;gap:10px;line-height:1;grid-column:2}
 .site-logo .glyph{width:9px;height:9px;border-radius:50%;background:var(--nc-green);flex:none;transition:transform .5s var(--ease)}
 .site-logo:hover .glyph{transform:scale(1.9)}
-.site-logo .wordmark{font-size:17px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.site-logo .wordmark{font-size:clamp(15px,1.5vw,19px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
 .site-logo .wordmark em{font-style:normal;font-weight:400;opacity:.7}
 
 .main-nav{display:flex;gap:30px;align-items:center;font-size:13px;font-weight:600}
@@ -236,13 +237,14 @@ body.nav-open .site-header{transform:none;color:#fff;background:transparent;box-
 }
 .main-nav a:not(.nav-cta):hover::after,
 .main-nav a.is-active:not(.nav-cta)::after{transform:scaleX(1);transform-origin:left}
-.main-nav .nav-cta{
+.site-header .nav-cta{
+  font-size:13px;font-weight:600;
   display:inline-flex;align-items:center;justify-content:center;
   padding:11px 20px;line-height:1;
   border:1px solid currentColor;border-radius:999px;
   transition:background .35s var(--ease),color .35s var(--ease),border-color .35s;
 }
-.main-nav .nav-cta:hover{background:var(--nc-green);border-color:var(--nc-green);color:#fff}
+.site-header .nav-cta:hover{background:var(--nc-charcoal);border-color:var(--nc-charcoal);color:var(--nc-paper)}
 
 /* Burger */
 .menu-toggle{
@@ -357,12 +359,15 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.38s}
 .section--tight{padding:clamp(34px,3.6vw,56px) 0}
 .section--cream{background:var(--nc-cream)}
 .section-head{
-  display:grid;grid-template-columns:1fr 2fr;gap:clamp(24px,4vw,60px);
-  border-top:1px solid var(--nc-line);padding-top:20px;margin-bottom:clamp(26px,3.2vw,46px);
+  display:block;text-align:center;max-width:64ch;margin-inline:auto;
+  margin-bottom:clamp(30px,3.6vw,52px);
 }
-.section-head h2{font-size:var(--step-4);line-height:1.02}
-.section-head .lede{font-size:var(--step-1);color:var(--nc-muted);max-width:44ch;margin-top:18px;line-height:1.45}
-.section-head--split{grid-template-columns:1fr 1fr;align-items:end}
+.section-head h2{
+  font-family:var(--font-body);font-weight:500;font-size:var(--step-3);
+  line-height:1.1;letter-spacing:-.025em;
+}
+.section-head .lede{font-size:var(--step-0);color:var(--nc-muted);max-width:56ch;margin:14px auto 0;line-height:1.6}
+.section-head--split{/* folded into the centred head */}
 
 /* Studio / stats */
 .intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,80px);align-items:start}
@@ -668,6 +673,7 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.38s}
 @media (max-width:900px){
   .main-nav{display:none}
   .menu-toggle{display:block}
+  .header-actions{display:none}
   .cursor,.cursor-ring{display:none}
   .hero{min-height:88svh}
   .hero-copy,.section-head,.intro-grid,.workshop-grid,.project-intro,.contact-grid,.cta-grid,.section-head--split{grid-template-columns:1fr}
@@ -823,4 +829,40 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.38s}
 @media (max-width:640px){
   .footer-tiles{grid-template-columns:1fr}
   .foot-tile .media{aspect-ratio:16/9}
+}
+
+/* ==========================================================================
+   17. STORY + NOTES
+   The brand-story collage and the informational cards that both reference
+   sites use to carry their "about" and "advice" content.
+   ========================================================================== */
+.story-head{max-width:60ch;margin-bottom:clamp(28px,3.4vw,48px)}
+.story-head h2{
+  font-family:var(--font-body);font-weight:500;font-size:var(--step-3);
+  line-height:1.1;letter-spacing:-.025em;margin-bottom:16px;
+}
+.story-head p{color:var(--nc-muted);margin-bottom:18px}
+
+/* Deliberately uneven: a large frame with a smaller detail dropped beside it. */
+.story-collage{display:grid;grid-template-columns:1.55fr 1fr;gap:var(--nc-gutter);align-items:end}
+.story-collage .media{width:100%}
+.story-a .media{aspect-ratio:16/10}
+.story-b .media{aspect-ratio:4/5}
+.story-collage figure{margin:0}
+
+.notes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,34px)}
+.note .media{width:100%;aspect-ratio:3/2;margin-bottom:16px}
+.note .media img{transition:transform 1.1s var(--ease)}
+.note:hover .media img{transform:scale(1.03)}
+.note h3{
+  font-family:var(--font-body);font-weight:500;font-size:var(--step-1);
+  line-height:1.25;letter-spacing:-.02em;margin-bottom:8px;
+}
+.note p{color:var(--nc-muted);font-size:var(--step--1);line-height:1.7}
+
+@media (max-width:900px){
+  .story-collage{grid-template-columns:1fr}
+  .story-b{display:none}            /* the detail shot is the one to drop */
+  .story-a .media{aspect-ratio:4/3}
+  .notes-grid{grid-template-columns:1fr;gap:34px}
 }

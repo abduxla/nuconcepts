@@ -62,35 +62,25 @@ if (location.hostname.endsWith('github.io')) {
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="preloader" aria-hidden="true">
-  <div class="preloader-inner">
-    <div class="mark">NuConcepts</div>
-    <div class="bar"><i></i></div>
-    <div class="count">0%</div>
-  </div>
-</div>
-
 <div class="progress" aria-hidden="true"></div>
-<div class="curtain" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true"></div>
-<div class="cursor-ring" aria-hidden="true"><span></span></div>
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="site-logo" href="index.html" aria-label="NuConcepts — home">
-      <span class="glyph" aria-hidden="true"></span>
-      <span class="wordmark">Nu<em>Concepts</em></span>
-    </a>
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay">
+      <i></i><i></i><i></i>
+    </button>
     <nav class="main-nav" aria-label="Primary">
       <a href="#about">Studio</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#services">Services</a>
       <a href="#workshop">Workshop</a>
-      <a class="nav-cta" href="#contact">Start a project</a>
     </nav>
-    <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay">
-      <i></i><i></i><i></i>
-    </button>
+    <a class="site-logo" href="index.html" aria-label="NuConcepts — home">
+      <span class="wordmark">Nu<em>Concepts</em></span>
+    </a>
+    <div class="header-actions">
+      <a class="nav-cta" href="#contact">Start a project</a>
+    </div>
   </div>
 </header>
 
@@ -141,23 +131,11 @@ if (location.hostname.endsWith('github.io')) {
   <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
 </section>
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Interior Design</span>
-    <span>Bespoke Furniture</span>
-    <span>Hospitality Fit-Out</span>
-    <span>Solid Timber Joinery</span>
-    <span>Upholstery</span>
-    <span>Supply &amp; Install</span>
-  </div>
-</div>
-
 <!-- STUDIO ---------------------------------------------------------------->
 <section class="section" id="about">
   <div class="wrap">
     <div class="section-head" data-reveal="fade">
-      <p class="eyebrow">01 / Studio</p>
-      <h2 class="serif">
+      <h2>
         <span class="split-line"><i>Where craft</i></span>
         <span class="split-line"><i>meets coast.</i></span>
       </h2>
@@ -184,9 +162,9 @@ if (location.hostname.endsWith('github.io')) {
 <!-- BROWSE ---------------------------------------------------------------->
 <section class="section section--tight" id="spaces">
   <div class="wrap">
-    <div class="section-head section-head--split" data-reveal="fade">
-      <p class="eyebrow">What are you looking for?</p>
-      <h2 class="serif">Start with<br>the space.</h2>
+    <div class="section-head" data-reveal="fade">
+      <h2>What are you looking for?</h2>
+      <p class="lede">Start with the kind of space you have in mind.</p>
     </div>
 
     <!-- Swipe on touch, arrows on desktop. Cards that name a portfolio
@@ -231,9 +209,8 @@ if (location.hostname.endsWith('github.io')) {
 <section class="section section--cream" id="portfolio">
   <div class="wrap">
     <div class="section-head" data-reveal="fade">
-      <p class="eyebrow">02 / Selected work</p>
       <div>
-        <h2 class="serif">
+        <h2>
           <span class="split-line"><i>Interiors made</i></span>
           <span class="split-line"><i>to belong.</i></span>
         </h2>
@@ -296,9 +273,8 @@ if (location.hostname.endsWith('github.io')) {
 <section class="section services" id="services">
   <div class="wrap">
     <div class="section-head" data-reveal="fade">
-      <p class="eyebrow">03 / What we do</p>
       <div>
-        <h2 class="serif">
+        <h2>
           <span class="split-line"><i>End-to-end</i></span>
           <span class="split-line"><i>interior solutions.</i></span>
         </h2>
@@ -406,7 +382,6 @@ if (location.hostname.endsWith('github.io')) {
     <div class="media"><img loading="lazy" src="assets/images/workshop.jpg" alt="The NuConcepts furniture workshop in Colombo, Sri Lanka"></div>
   </div>
   <div class="workshop-copy">
-    <p class="eyebrow">04 / Our workshop · Colombo</p>
     <h2 data-reveal="fade">
       <span class="split-line"><i>Made in</i></span>
       <span class="split-line"><i>Sri Lanka.</i></span>
@@ -429,13 +404,30 @@ if (location.hostname.endsWith('github.io')) {
   </div>
 </section>
 
+<!-- STORY ------------------------------------------------------------------>
+<section class="section story">
+  <div class="wrap">
+    <div class="story-head" data-reveal="fade">
+      <h2>Eight years of making it on the island</h2>
+      <p>NuConcepts started in 2018 as a workshop that also drew. That order still
+         matters: the studio designs around what can actually be cut, joined and
+         finished in Colombo, and the people who specify a detail are the people who
+         make it.</p>
+      <a class="tlink" href="#workshop">Inside the workshop <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="story-collage">
+      <figure class="story-a" data-reveal><div class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-03.jpg" alt="Hand-cut teak joinery detail"></div></figure>
+      <figure class="story-b" data-reveal style="--d:120ms"><div class="media"><img loading="lazy" src="assets/images/projects/miss-ceylon-06.jpg" alt="Timber, rattan, linen and stone material palette"></div></figure>
+    </div>
+  </div>
+</section>
+
 <!-- PROCESS --------------------------------------------------------------->
 <section class="section">
   <div class="wrap">
     <div class="section-head" data-reveal="fade">
-      <p class="eyebrow">05 / Process</p>
       <div>
-        <h2 class="serif">
+        <h2>
           <span class="split-line"><i>One team.</i></span>
           <span class="split-line"><i>Four stages.</i></span>
         </h2>
@@ -466,9 +458,8 @@ if (location.hostname.endsWith('github.io')) {
 <!-- PRINCIPLES ------------------------------------------------------------>
 <section class="section section--cream">
   <div class="wrap">
-    <div class="section-head section-head--split" data-reveal="fade">
-      <p class="eyebrow">06 / How we work</p>
-      <h2 class="serif">Six rules<br>we don't bend.</h2>
+    <div class="section-head" data-reveal="fade">
+      <h2>Six rules<br>we don't bend.</h2>
     </div>
     <div class="voice-track" data-reveal>
       <figure class="voice is-on">
@@ -507,6 +498,39 @@ if (location.hostname.endsWith('github.io')) {
   </div>
 </section>
 
+<!-- NOTES ------------------------------------------------------------------>
+<section class="section section--cream">
+  <div class="wrap">
+    <div class="section-head" data-reveal="fade">
+      <h2>Good to know</h2>
+      <p class="lede">A few things worth understanding before a project starts.</p>
+    </div>
+    <div class="notes-grid">
+      <article class="note" data-reveal>
+        <div class="media"><img loading="lazy" src="assets/images/projects/angel-beach-02.jpg" alt="Bar joinery in a beach club"></div>
+        <h3>What we need in order to quote</h3>
+        <p>Drawings or rough dimensions, photographs of the space, a sense of the
+           atmosphere you are after and your target dates. If you have none of that,
+           a conversation and a site visit is enough to start.</p>
+      </article>
+      <article class="note" data-reveal style="--d:100ms">
+        <div class="media"><img loading="lazy" src="assets/images/projects/angel-beach-06.jpg" alt="Weathered teak and canvas in coastal daylight"></div>
+        <h3>Choosing timber for the coast</h3>
+        <p>Sea air and monsoon humidity decide more than taste does. We work in teak
+           and jackwood, detail joinery so it can move, and choose finishes that can
+           be recoated rather than replaced.</p>
+      </article>
+      <article class="note" data-reveal style="--d:200ms">
+        <div class="media"><img loading="lazy" src="assets/images/projects/abode-ahangama-03.jpg" alt="Restaurant seating in a beachfront hotel"></div>
+        <h3>Designing for a working hotel</h3>
+        <p>A guestroom chair is a working object. Pieces are sized for housekeeping
+           as much as for the photograph, and specified so a single damaged part can
+           be remade without replacing the set.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- SEO COPY + FAQ -------------------------------------------------------->
 <section class="section">
   <div class="wrap">
@@ -530,8 +554,7 @@ if (location.hostname.endsWith('github.io')) {
 <section class="section section--tight">
   <div class="wrap">
     <div class="section-head" data-reveal="fade">
-      <p class="eyebrow">07 / Questions</p>
-      <h2 class="serif">Before you<br>get in touch.</h2>
+      <h2>Before you<br>get in touch.</h2>
     </div>
     <div class="faq">
       <div class="faq-item">
@@ -570,9 +593,8 @@ if (location.hostname.endsWith('github.io')) {
 <section class="section section--cream" id="contact">
   <div class="wrap">
     <div class="section-head" data-reveal="fade">
-      <p class="eyebrow">08 / Contact</p>
       <div>
-        <h2 class="serif">
+        <h2>
           <span class="split-line"><i>Tell us about</i></span>
           <span class="split-line"><i>the space.</i></span>
         </h2>
