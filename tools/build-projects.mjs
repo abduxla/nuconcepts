@@ -299,7 +299,7 @@ ${gallery(p)}
     </div>
     <div data-reveal style="--d:140ms">
       <p>Tell us about your hotel, villa, restaurant, residence or commercial interior.</p>
-      <a class="button button--light" href="../index.html#contact"><span>Start a project</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="button" href="../index.html#contact"><span>Start a project</span><span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
