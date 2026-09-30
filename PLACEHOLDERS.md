@@ -25,10 +25,15 @@ imagery is indicative. **Not fine on the live site.**
 ## The hero clip is also a placeholder
 
 `assets/video/hero.webm` is a 9-second clip **rendered from the placeholder
-hero still** — a slow push-in with a warm key light raking across the frame
-and the shadow travelling the other way. It is real video, but it is not
-footage: nothing was filmed, and the room in it is the same generated image as
-`hero.jpg`.
+hero still** — 1920x1080, 2.2 MB, a slow push-in with a warm key light raking
+across the frame and the shadow travelling the other way. It is real video,
+but it is not footage: nothing was filmed, and the room in it is the same
+generated image as `hero.jpg`.
+
+1080p is the ceiling here, not a choice: `hero.jpg` is 1920x1080, so there is
+no 4K detail to draw on. Rendering the clip larger would only upscale the same
+pixels into a heavier file. Genuine 4K needs a 4K source — real footage, or a
+4K photograph of the space.
 
 So it carries the same caveat as the photographs. Replace it with a real clip
 of NuConcepts' own work before launch. Drop the file at
