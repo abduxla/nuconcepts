@@ -147,7 +147,16 @@
     }, { once: true });
     video.addEventListener('error', () => {}, { once: true });
 
-    video.src = src;
+    // Several candidates: the browser picks the first it can decode, and if it
+    // can decode none, canplay never fires and the still simply stays.
+    const TYPES = { webm: 'video/webm', mp4: 'video/mp4', ogv: 'video/ogg' };
+    src.split(',').map((u) => u.trim()).filter(Boolean).forEach((u) => {
+      const source = document.createElement('source');
+      source.src = u;
+      const ext = u.split('.').pop().toLowerCase();
+      if (TYPES[ext]) source.type = TYPES[ext];
+      video.appendChild(source);
+    });
     video.load();
   };
 

@@ -22,6 +22,23 @@ and presented as a finished design rather than a grid of empty boxes.
 So: fine for an internal design review or a pitch where everyone knows the
 imagery is indicative. **Not fine on the live site.**
 
+## The hero clip is also a placeholder
+
+`assets/video/hero.webm` is a 9-second clip **rendered from the placeholder
+hero still** — a slow push-in with a warm key light raking across the frame
+and the shadow travelling the other way. It is real video, but it is not
+footage: nothing was filmed, and the room in it is the same generated image as
+`hero.jpg`.
+
+So it carries the same caveat as the photographs. Replace it with a real clip
+of NuConcepts' own work before launch. Drop the file at
+`assets/video/hero.mp4` (or `.webm`) — the hero already lists both and plays
+the first the browser can decode.
+
+Keep a real clip short, muted and compressed: a few seconds, 1080p, looping,
+ideally under about 5 MB. Deleting the file is safe — the still returns, with
+the CSS lighting back over it.
+
 ## Replacing them
 
 Every image is a plain JPEG at the exact path the HTML expects, so replacing
