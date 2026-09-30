@@ -97,9 +97,11 @@ already work for an `<img>`.
 
 ## The hero
 
-`assets/video/hero.mp4` is a slot, not a file. Drop a clip in and the hero
-becomes a video hero with no other change — the still stays as the poster and
-the video only swaps in once it is confirmed playable, so a missing or blocked
+The hero plays `assets/video/hero.webm`, falling back to
+`assets/video/hero.mp4` (H.264) for Safari and iOS. Both are placeholder
+renders — see PLACEHOLDERS.md. Replace either file in place and the hero picks
+it up with no other change: the still stays as the poster and a clip only
+swaps in once it is confirmed playable, so a missing, blocked or undecodable
 file never breaks the page.
 
 Until then the still is given the behaviour that makes the reference hero read

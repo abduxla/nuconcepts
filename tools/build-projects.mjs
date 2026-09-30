@@ -302,7 +302,7 @@ ${FONTS}
 </script>
 </head>
 
-<body class="project-page">
+<body class="project-page hero-header">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="progress" aria-hidden="true"></div>
 

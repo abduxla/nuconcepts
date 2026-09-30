@@ -164,15 +164,20 @@ p:last-child{margin-bottom:0}
 /* 4. HEADER =============================================================== */
 /* onlyandco.com's arrangement: a solid light bar with the wordmark left,
    uppercase tabs centred and utility icons right. */
+/* Solid is the DEFAULT so a page without a dark hero can never hide the
+   wordmark. Pages that open on a hero opt into the transparent overlay with
+   .hero-header on <body>; forgetting it costs a plain bar, not an invisible
+   logo. Everything in the bar inherits the header's colour so the two states
+   stay in step. */
 .site-header{
-  position:fixed;z-index:70;inset:0 0 auto;background:transparent;
-  border-bottom:1px solid transparent;color:#fff;
+  position:fixed;z-index:70;inset:0 0 auto;
+  background:var(--sand);border-bottom:1px solid var(--line);color:var(--ink);
   transition:transform .45s var(--ease),background .35s,color .35s,
              border-color .35s,box-shadow .35s;
 }
-.site-header.scrolled{
-  background:var(--sand);border-bottom-color:var(--line);color:var(--ink);
-  box-shadow:0 1px 14px rgba(20,20,20,.06);
+.site-header.scrolled{box-shadow:0 1px 14px rgba(20,20,20,.06)}
+body.hero-header .site-header:not(.scrolled){
+  background:transparent;border-bottom-color:transparent;color:#fff;box-shadow:none;
 }
 .site-header.is-hidden{transform:translateY(-105%)}
 .header-inner{
@@ -186,7 +191,7 @@ p:last-child{margin-bottom:0}
 .main-nav a{
   position:relative;display:inline-block;padding:6px 0;
   font-size:12.5px;font-weight:500;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--ink);white-space:nowrap;
+  color:inherit;white-space:nowrap;
 }
 .main-nav a i{font-style:normal;font-size:9px;margin-left:3px;opacity:.6}
 .main-nav a::after{
@@ -214,7 +219,7 @@ p:last-child{margin-bottom:0}
 .header-actions{display:flex;justify-self:end;align-items:center;gap:6px}
 .icon-btn{
   width:38px;height:38px;display:grid;place-items:center;border:0;border-radius:50%;
-  background:none;color:var(--ink);cursor:pointer;
+  background:none;color:inherit;cursor:pointer;
   transition:background var(--dur) var(--ease);
 }
 .icon-btn:hover{background:var(--stone)}
@@ -739,3 +744,23 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
   .stage-gallery{grid-template-columns:repeat(2,1fr)}
   .start-form .pair{grid-template-columns:1fr}
 }
+
+/* Homepage teaser for the Create With Us journey. Compact on purpose — the
+   full path lives on that page, this is only a signpost. */
+.miniflow{
+  list-style:none;margin:0 0 clamp(22px,2.6vw,34px);padding:0;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--line);border:1px solid var(--line);
+}
+.miniflow li{
+  display:flex;align-items:baseline;gap:10px;background:var(--sand);
+  padding:16px 18px;font-size:var(--t-sm);font-weight:600;
+  color:var(--ink);line-height:1.35;
+}
+.miniflow li span{
+  flex:none;font-size:var(--t-xs);letter-spacing:.12em;font-weight:700;
+  color:var(--accent);
+}
+.miniflow-cta{text-align:center;margin:0}
+@media (max-width:900px){ .miniflow{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:560px){ .miniflow{grid-template-columns:1fr} }

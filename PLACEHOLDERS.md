@@ -24,21 +24,21 @@ imagery is indicative. **Not fine on the live site.**
 
 ## The hero clip is also a placeholder
 
-`assets/video/hero.webm` is a 9-second clip **rendered from the placeholder
-hero still** — 1920x1080, 2.2 MB, a slow push-in with a warm key light raking
-across the frame and the shadow travelling the other way. It is real video,
-but it is not footage: nothing was filmed, and the room in it is the same
-generated image as `hero.jpg`.
+`assets/video/hero.webm` (2.2 MB, VP9) and `assets/video/hero.mp4` (1.0 MB,
+H.264, for Safari and iOS) are the same 9-second clip **rendered from the
+placeholder hero still** — 1920x1080, a slow push-in with a warm key light
+raking across the frame and the shadow travelling the other way. It is real
+video, but it is not footage: nothing was filmed, and the room in it is the
+same generated image as `hero.jpg`.
 
 1080p is the ceiling here, not a choice: `hero.jpg` is 1920x1080, so there is
 no 4K detail to draw on. Rendering the clip larger would only upscale the same
 pixels into a heavier file. Genuine 4K needs a 4K source — real footage, or a
 4K photograph of the space.
 
-So it carries the same caveat as the photographs. Replace it with a real clip
-of NuConcepts' own work before launch. Drop the file at
-`assets/video/hero.mp4` (or `.webm`) — the hero already lists both and plays
-the first the browser can decode.
+So it carries the same caveat as the photographs. Replace both with a real clip
+of NuConcepts' own work before launch, at the same two paths — the hero lists
+them in that order and plays the first the browser can decode.
 
 Keep a real clip short, muted and compressed: a few seconds, 1080p, looping,
 ideally under about 5 MB. Deleting the file is safe — the still returns, with
