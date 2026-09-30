@@ -278,65 +278,88 @@
      the visitor's mail client with the brief already composed.
      -------------------------------------------------------------------- */
   const initForm = () => {
-    const form = $('.form');
-    if (!form) return;
-    const status = $('.form-status');
-    const mailTo = form.dataset.mailto || 'sales@nuconceptstore.com';
+    // The homepage enquiry form and the Create With Us brief share behaviour;
+    // the brief simply carries more fields and a file picker.
+    $$('.form, .start-form').forEach((form) => {
+      const status = $('.form-status', form);
+      const mailTo = form.dataset.mailto || 'sales@nuconceptstore.com';
+      const files = $('input[type="file"]', form);
 
-    const fail = (field, message) => {
-      const box = field.closest('.field');
-      if (!box) return;
-      box.classList.add('has-error');
-      const err = $('.err', box);
-      if (err) err.textContent = message;
-    };
+      const fail = (field, message) => {
+        const box = field && field.closest('.field');
+        if (!box) return;
+        box.classList.add('has-error');
+        const err = $('.err', box);
+        if (err) err.textContent = message;
+      };
 
-    form.addEventListener('input', (e) => {
-      const box = e.target.closest('.field');
-      if (box) box.classList.remove('has-error');
-      if (e.target.tagName === 'SELECT') e.target.classList.toggle('has-value', !!e.target.value);
-    });
+      form.addEventListener('input', (e) => {
+        const box = e.target.closest('.field');
+        if (box) box.classList.remove('has-error');
+        if (e.target.tagName === 'SELECT') e.target.classList.toggle('has-value', !!e.target.value);
+      });
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      $$('.field', form).forEach((f) => f.classList.remove('has-error'));
-
-      const data = new FormData(form);
-      const get = (k) => (data.get(k) || '').toString().trim();
-      const name = get('name'), email = get('email'), message = get('message');
-
-      let ok = true;
-      if (!name) { fail(form.elements.name, 'Please tell us your name.'); ok = false; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        fail(form.elements.email, 'Please enter a valid email address.'); ok = false;
-      }
-      if (message.length < 10) {
-        fail(form.elements.message, 'A sentence or two about the space, please.'); ok = false;
-      }
-      if (!ok) {
-        const first = $('.field.has-error input, .field.has-error textarea', form);
-        if (first) first.focus();
-        return;
+      // Show what was picked, so nobody assumes the files were transmitted.
+      if (files) {
+        const note = $('[data-file-note]', form);
+        const base = note ? note.textContent.trim() : '';
+        files.addEventListener('change', () => {
+          if (!note) return;
+          const names = Array.from(files.files).map((f) => f.name);
+          note.textContent = names.length
+            ? 'Ready to attach: ' + names.join(', ') + '. ' + base
+            : base;
+        });
       }
 
-      const body = [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Project type: ${get('project') || 'Not specified'}`,
-        `Location: ${get('location') || 'Not specified'}`,
-        '',
-        message,
-      ].join('\n');
+      const LABELS = {
+        name: 'Name', email: 'Email', phone: 'Phone / WhatsApp',
+        location: 'Project location', project: 'Project type', type: 'Project type',
+        timeline: 'Expected timeline',
+      };
 
-      window.location.href = `mailto:${mailTo}`
-        + `?subject=${encodeURIComponent('Interior project enquiry — ' + name)}`
-        + `&body=${encodeURIComponent(body)}`;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        $$('.field', form).forEach((f) => f.classList.remove('has-error'));
 
-      if (status) {
-        status.textContent = `Thanks ${name} — your email client is opening with the brief ready to send. `
-          + `If nothing happens, write to ${mailTo} directly.`;
-        status.classList.add('is-on');
-      }
+        const data = new FormData(form);
+        const get = (k) => (data.get(k) || '').toString().trim();
+        const name = get('name'), email = get('email'), message = get('message');
+
+        let ok = true;
+        if (!name) { fail(form.elements.name, 'Please tell us your name.'); ok = false; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          fail(form.elements.email, 'Please enter a valid email address.'); ok = false;
+        }
+        if (message.length < 10) {
+          fail(form.elements.message, 'A sentence or two about the space, please.'); ok = false;
+        }
+        if (!ok) {
+          const first = $('.field.has-error input, .field.has-error textarea, .field.has-error select', form);
+          if (first) first.focus();
+          return;
+        }
+
+        const lines = [];
+        Object.keys(LABELS).forEach((key) => {
+          const v = get(key);
+          if (v) lines.push(LABELS[key] + ': ' + v);
+        });
+        const picked = files ? Array.from(files.files).map((f) => f.name) : [];
+        if (picked.length) lines.push('Files to attach: ' + picked.join(', '));
+        lines.push('', message);
+
+        window.location.href = 'mailto:' + mailTo
+          + '?subject=' + encodeURIComponent('Interior project enquiry — ' + name)
+          + '&body=' + encodeURIComponent(lines.join('\n'));
+
+        if (status) {
+          status.textContent = 'Thanks ' + name + ' — your email client is opening with the brief ready to send.'
+            + (picked.length ? ' Please attach ' + picked.length + ' file' + (picked.length > 1 ? 's' : '') + ' before sending.' : '')
+            + ' If nothing happens, write to ' + mailTo + ' directly.';
+          status.classList.add('is-on');
+        }
+      });
     });
   };
 

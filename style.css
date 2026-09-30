@@ -656,3 +656,86 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
 .site-logo .logo-dot{fill:var(--accent)}
 .site-logo--foot .logo{height:44px}
 @media (max-width:900px){ .site-logo .logo{height:32px} }
+
+/* ==========================================================================
+   19. CREATE WITH US
+   ========================================================================== */
+.c-intro{padding:calc(var(--header-h) + clamp(40px,6vw,92px)) 0 clamp(30px,4vw,56px);background:var(--sand)}
+.c-intro .kicker{font-family:var(--serif);font-size:var(--t-lg);font-style:italic;color:var(--muted);margin-bottom:6px}
+.c-intro h1{max-width:18ch;margin-bottom:20px}
+.c-intro .lede{max-width:62ch}
+
+/* Journey — a snake on desktop, a spine on mobile ------------------------- */
+.journey{position:relative}
+.journey-row{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
+.journey-row + .journey-row{margin-top:var(--gutter)}
+/* second row runs back the other way, so the eye follows the path */
+.journey-row--back{direction:rtl}
+.journey-row--back > li{direction:ltr}
+.journey a{
+  display:block;height:100%;padding:18px 18px 20px;background:var(--white);
+  border:1px solid var(--line);border-radius:2px;
+  transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease);
+}
+.journey a:hover{border-color:var(--ink);transform:translateY(-2px)}
+.journey a b{display:block;font-size:var(--t-xs);letter-spacing:.14em;color:var(--accent);font-weight:700;margin-bottom:6px}
+.journey a span{display:block;font-size:var(--t-sm);font-weight:600;color:var(--ink);line-height:1.35}
+/* the turn between the two rows */
+.journey-turn{display:flex;justify-content:flex-end;padding:10px 0 0}
+.journey-turn i{display:block;width:34px;height:34px;border-right:1px solid var(--line-firm);border-bottom:1px solid var(--line-firm);border-bottom-right-radius:2px}
+
+/* Stages ----------------------------------------------------------------- */
+.stages{display:grid;gap:clamp(34px,4.5vw,72px)}
+.stage{display:grid;grid-template-columns:minmax(210px,.8fr) minmax(0,2fr);gap:clamp(18px,3vw,56px);
+  padding-top:clamp(24px,3vw,40px);border-top:1px solid var(--line)}
+.stage-num b{display:block;font-family:var(--serif);font-size:clamp(46px,5vw,76px);font-weight:500;line-height:1;color:var(--accent)}
+.stage-num span{display:block;margin-top:8px;font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.stage-body h3{font-size:clamp(20px,1.7vw,28px);margin-bottom:12px}
+.stage-body p{color:var(--muted);max-width:62ch}
+.stage-body .btn{margin-top:6px}
+.stage-body .stage-close{font-family:var(--serif);font-size:var(--t-lg);color:var(--ink);margin-top:14px}
+
+.chiplist{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px;padding:0}
+.chiplist li{border:1px solid var(--line-firm);border-radius:2px;padding:6px 12px;font-size:var(--t-xs);color:var(--body)}
+
+/* The approval gate — deliberately the loudest thing on the page, because it
+   is the reassurance the client asked to foreground. */
+.approval{margin-top:18px;padding:18px 20px;background:var(--ink);color:#fff;border-left:4px solid var(--accent)}
+.stage-body .approval-tag{font-size:var(--t-xs);letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:6px}
+.stage-body .approval-line{color:#fff;margin:0;font-size:var(--t-lg);line-height:1.45;max-width:none}
+
+.stage-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.stage-gallery .media{width:100%;aspect-ratio:1/1}
+
+/* Start form ------------------------------------------------------------- */
+.start-form{max-width:860px;margin-inline:auto;display:grid;gap:10px}
+.start-form .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field-help{font-size:var(--t-xs);color:var(--muted);margin:-2px 0 6px}
+.dropzone{border:1px dashed var(--line-firm);border-radius:2px;padding:18px;background:var(--white)}
+.dropzone-label{display:block;cursor:pointer}
+.dropzone-label b{display:block;font-size:var(--t-base);color:var(--ink)}
+.dropzone-label span{display:block;font-size:var(--t-xs);color:var(--muted);margin-top:3px}
+.dropzone input[type=file]{margin-top:12px;font-size:var(--t-sm);color:var(--body)}
+.dropzone-note{font-size:var(--t-xs);color:var(--muted);margin:10px 0 0;line-height:1.5}
+.start-foot{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+
+@media (max-width:900px){
+  /* one vertical spine, numbers down the left */
+  .journey-row{grid-template-columns:1fr;gap:0}
+  .journey-row--back{direction:ltr}
+  .journey-row + .journey-row{margin-top:0}
+  .journey-turn{display:none}
+  .journey li{position:relative;padding-left:26px}
+  .journey li::before{content:"";position:absolute;left:9px;top:0;bottom:0;width:1px;background:var(--line-firm)}
+  .journey li:first-child::before{top:22px}
+  .journey ol:last-child li:last-child::before{bottom:calc(100% - 22px)}
+  .journey li::after{content:"";position:absolute;left:5px;top:19px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+  .journey a{border:0;border-radius:0;background:none;padding:10px 0 14px}
+  .journey a:hover{transform:none}
+  .stage{grid-template-columns:1fr;gap:14px}
+  .stage-num{display:flex;align-items:baseline;gap:12px}
+  .stage-num b{font-size:40px}
+  .stage-num span{margin-top:0}
+  .stage-gallery{grid-template-columns:repeat(2,1fr)}
+  .start-form .pair{grid-template-columns:1fr}
+}

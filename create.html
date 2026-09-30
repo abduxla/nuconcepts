@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add('js');</script>
+<script>
+/* Flags broken images before any <img> is parsed, so no error event is missed.
+   A "complete && naturalWidth === 0" sweep cannot be used instead: Chrome
+   reports exactly that for lazy images it has merely deferred. */
+document.addEventListener('error', function (e) {
+  var t = e.target;
+  if (t && t.tagName === 'IMG') t.setAttribute('data-img-error', '1');
+}, true);
+</script>
+<script>
+/* Preview-only noindex, so it never follows the build to nuconceptstore.com. */
+if (location.hostname.endsWith('github.io')) {
+  document.head.insertAdjacentHTML('beforeend', '<meta name="robots" content="noindex,nofollow">');
+}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create With Us — How a NuConcepts project runs | NuConcepts</title>
+<meta name="description" content="Your idea. Our process. Made for your space. From requirements and quotation through site measurement, materials, production drawings, manufacturing and installation — one team, start to finish.">
+<meta name="theme-color" content="#F8F6F3">
+<link rel="canonical" href="https://nuconceptstore.com/create.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Create With Us | NuConcepts">
+<meta property="og:description" content="Your idea. Our process. Made for your space.">
+<meta property="og:url" content="https://nuconceptstore.com/create.html">
+<meta property="og:image" content="https://nuconceptstore.com/assets/images/workshop.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Figtree:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="site-logo" href="index.html" aria-label="NuConcepts — home">
+      <svg class="logo" viewBox="0 0 232 104" role="img" aria-label="nu concepts">
+        <text class="logo-a" x="0" y="46">nu</text>
+        <circle class="logo-dot" cx="33" cy="12" r="5.2"/>
+        <circle class="logo-dot" cx="49" cy="12" r="5.2"/>
+        <text class="logo-b" x="0" y="96">concepts</text>
+      </svg>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <div class="has-sub">
+        <a href="index.html#services" aria-haspopup="true" aria-expanded="false">Services <i aria-hidden="true">&#9662;</i></a>
+        <div class="sub">
+          <a href="index.html#services">Bespoke Manufacturing</a>
+          <a href="index.html#services">Restoration</a>
+          <a href="index.html#services">Sourcing</a>
+          <a href="index.html#services">Hospitality Fit-Out</a>
+        </div>
+      </div>
+      <a href="index.html#about">Our Story</a>
+      <a class="is-active" href="create.html">Create With Us</a>
+      <a href="index.html#work">Projects</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="searchOpen" aria-label="Search" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+      </button>
+      <a class="icon-btn" href="https://instagram.com/nuconcepts_store" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle cx="17.1" cy="6.9" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="icon-btn" href="tel:+94775579572" aria-label="Call the studio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 3.5h3.2l1.6 4-2 1.4a12 12 0 0 0 5.3 5.3l1.4-2 4 1.6V18a2.5 2.5 0 0 1-2.7 2.5A16.5 16.5 0 0 1 3.5 6.2 2.5 2.5 0 0 1 5 3.5z"/></svg>
+      </a>
+      <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay">
+        <i></i><i></i><i></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="search-panel" id="searchPanel" aria-hidden="true" role="dialog" aria-label="Search">
+  <div class="wrap search-inner">
+    <label class="sr-only" for="searchInput">Search this site</label>
+    <input id="searchInput" type="search" placeholder="What can we help you find?" autocomplete="off">
+    <button class="icon-btn" id="searchClose" aria-label="Close search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <ul class="search-results" id="searchResults"></ul>
+  </div>
+</div>
+
+<div class="nav-overlay" id="nav-overlay" aria-hidden="true">
+  <a class="big" href="index.html#services">Services</a>
+  <a class="big" href="index.html#about">Our Story</a>
+  <a class="big" href="create.html">Create With Us</a>
+  <a class="big" href="index.html#work">Projects</a>
+  <a class="big" href="index.html#contact">Contact</a>
+  <div class="nav-overlay-foot">
+    <a href="mailto:sales@nuconceptstore.com">sales@nuconceptstore.com</a>
+    <a href="tel:+94775579572">+94 77 557 9572</a>
+    <a href="https://instagram.com/nuconcepts_store" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- INTRO ----------------------------------------------------------------->
+<section class="c-intro">
+  <div class="wrap">
+    <p class="kicker" data-reveal="fade">Create with us</p>
+    <h1 data-reveal="fade">Your idea. Our process.<br>Made for your space.</h1>
+    <p class="lede" data-reveal="fade">From a single custom piece to a complete furniture
+       package, we make the process straightforward. One team manages it from the first
+       conversation to the final installation.</p>
+  </div>
+</section>
+
+<!-- JOURNEY --------------------------------------------------------------->
+<!-- Desktop reads as a snake: 01-04 left to right, then 08-05 back along the
+     row beneath, so the eye follows the path rather than a plain list.
+     Below 900px the same markup becomes one vertical spine. -->
+<section class="section section--stone">
+  <div class="wrap">
+    <div class="head" data-reveal="fade">
+      <h2>The path a project takes</h2>
+      <p class="lede">Eight stages. Jump to any of them.</p>
+    </div>
+
+    <nav class="journey" aria-label="Project stages" data-reveal>
+      <ol class="journey-row">
+        <li><a href="#s01"><b>01</b><span>Share your requirements</span></a></li>
+        <li><a href="#s02"><b>02</b><span>Quotation</span></a></li>
+        <li><a href="#s03"><b>03</b><span>Site visit &amp; measurement</span></a></li>
+        <li><a href="#s04"><b>04</b><span>Materials &amp; finishes</span></a></li>
+      </ol>
+      <div class="journey-turn" aria-hidden="true"><i></i></div>
+      <ol class="journey-row journey-row--back">
+        <li><a href="#s05"><b>05</b><span>Production drawings</span></a></li>
+        <li><a href="#s06"><b>06</b><span>Manufacturing</span></a></li>
+        <li><a href="#s07"><b>07</b><span>Delivery &amp; installation</span></a></li>
+        <li><a href="#s08"><b>08</b><span>Final handover</span></a></li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<!-- STAGES ---------------------------------------------------------------->
+<section class="section">
+  <div class="wrap stages">
+
+    <article class="stage" id="s01" data-reveal>
+      <div class="stage-num"><b>01</b><span>Share your requirements</span></div>
+      <div class="stage-body">
+        <h3>Tell us about your project.</h3>
+        <p>Send us your furniture requirements, architectural drawings, BOQ, reference
+           images — or simply tell us what you would like to create.</p>
+        <p>Whether it is a private residence, villa, hotel, restaurant or commercial
+           space, our team will review your requirements and help establish the scope
+           of work.</p>
+        <a class="btn btn--line" href="#start">Upload your drawings / BOQ / references <span class="btn__ico" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+
+    <article class="stage" id="s02" data-reveal>
+      <div class="stage-num"><b>02</b><span>Quotation</span></div>
+      <div class="stage-body">
+        <h3>Clear pricing from the beginning.</h3>
+        <p>Based on the information provided, we prepare a detailed quotation covering
+           the furniture, quantities, specifications and proposed finishes.</p>
+        <p>For larger projects, quotations can be organised by room, area or furniture
+           category for easier review.</p>
+        <a class="btn btn--line" href="#start">Request a quotation <span class="btn__ico" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+
+    <article class="stage" id="s03" data-reveal>
+      <div class="stage-num"><b>03</b><span>Site visit &amp; measurement</span></div>
+      <div class="stage-body">
+        <h3>We measure. We verify.</h3>
+        <p>Once the project proceeds, our team visits the site to verify dimensions and
+           assess site conditions, access and installation requirements.</p>
+        <p>For custom joinery and built-in furniture, final measurements are taken
+           before production drawings are completed.</p>
+      </div>
+    </article>
+
+    <article class="stage" id="s04" data-reveal>
+      <div class="stage-num"><b>04</b><span>Materials &amp; finishes</span></div>
+      <div class="stage-body">
+        <h3>Choose the details that make it yours.</h3>
+        <p>We work with you to finalise the materials and finishes for each piece.</p>
+        <ul class="chiplist">
+          <li>Timber</li><li>Upholstery</li><li>Fabrics</li><li>Colours</li>
+          <li>Finishes</li><li>Hardware</li><li>Stone</li><li>Metal details</li>
+        </ul>
+        <p>Where required, physical samples are submitted for approval.</p>
+      </div>
+    </article>
+
+    <article class="stage" id="s05" data-reveal>
+      <div class="stage-num"><b>05</b><span>Production drawings</span></div>
+      <div class="stage-body">
+        <h3>See the details before we build.</h3>
+        <p>Before manufacturing, we prepare final production drawings for custom
+           furniture and joinery where required.</p>
+        <p>These drawings incorporate confirmed site measurements, dimensions,
+           materials and construction details.</p>
+        <div class="approval">
+          <p class="approval-tag">Client approval</p>
+          <p class="approval-line">Nothing proceeds to manufacturing until the required
+             production details are approved.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="stage" id="s06" data-reveal>
+      <div class="stage-num"><b>06</b><span>Manufacturing</span></div>
+      <div class="stage-body">
+        <h3>Made in our Colombo workshop.</h3>
+        <p>Once approved, your furniture moves into production. Our team manages the
+           process from fabrication and joinery through to finishing, upholstery and
+           quality control.</p>
+        <div class="stage-gallery">
+          <div class="media zoom"><img loading="lazy" src="assets/images/workshop.jpg" alt="Timber and a half-finished chair in the Colombo workshop"></div>
+          <div class="media zoom"><img loading="lazy" src="assets/images/projects/miss-ceylon-03.jpg" alt="Hand-cut teak joinery detail"></div>
+          <div class="media zoom"><img loading="lazy" src="assets/images/projects/angel-beach-02.jpg" alt="Bar joinery under construction"></div>
+          <div class="media zoom"><img loading="lazy" src="assets/images/projects/miss-ceylon-06.jpg" alt="Timber, rattan, linen and stone material palette"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="stage" id="s07" data-reveal>
+      <div class="stage-num"><b>07</b><span>Delivery &amp; installation</span></div>
+      <div class="stage-body">
+        <h3>From our workshop to your space.</h3>
+        <p>Once production is complete, we coordinate delivery and installation with
+           your project team.</p>
+        <p>For larger projects, deliveries can be scheduled in stages according to site
+           readiness and the overall project programme.</p>
+      </div>
+    </article>
+
+    <article class="stage" id="s08" data-reveal>
+      <div class="stage-num"><b>08</b><span>Final handover</span></div>
+      <div class="stage-body">
+        <h3>The finishing touch.</h3>
+        <p>Following installation, our team carries out a final inspection and attends
+           to any required adjustments before project handover.</p>
+        <p class="stage-close">From the first conversation to the final installation,
+           one team manages the process.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- START ----------------------------------------------------------------->
+<section class="section section--stone" id="start">
+  <div class="wrap">
+    <div class="head" data-reveal="fade">
+      <p class="kicker">Ready to create with us?</p>
+      <h2>Tell us about your project.</h2>
+      <p class="lede">Have drawings already? Send them over and we will review your
+         requirements.</p>
+    </div>
+
+    <form class="start-form" novalidate data-mailto="sales@nuconceptstore.com" data-reveal>
+      <div class="pair">
+        <div class="field">
+          <input id="c-name" name="name" type="text" placeholder=" " autocomplete="name" required>
+          <label for="c-name">Name</label><span class="err"></span>
+        </div>
+        <div class="field">
+          <input id="c-phone" name="phone" type="tel" placeholder=" " autocomplete="tel">
+          <label for="c-phone">Phone / WhatsApp</label>
+        </div>
+      </div>
+      <div class="pair">
+        <div class="field">
+          <input id="c-email" name="email" type="email" placeholder=" " autocomplete="email" required>
+          <label for="c-email">Email</label><span class="err"></span>
+        </div>
+        <div class="field">
+          <input id="c-location" name="location" type="text" placeholder=" ">
+          <label for="c-location">Project location</label>
+        </div>
+      </div>
+      <div class="pair">
+        <div class="field">
+          <select id="c-type" name="type">
+            <option value=""></option>
+            <option>Private residence</option><option>Villa</option>
+            <option>Hotel</option><option>Restaurant or bar</option>
+            <option>Commercial or office</option><option>Furniture only</option>
+            <option>Restoration</option>
+          </select>
+          <label for="c-type">Project type</label>
+          <span class="chev" aria-hidden="true">&#9662;</span>
+        </div>
+        <div class="field">
+          <select id="c-timeline" name="timeline">
+            <option value=""></option>
+            <option>As soon as possible</option><option>Within 3 months</option>
+            <option>3–6 months</option><option>6–12 months</option>
+            <option>Still planning</option>
+          </select>
+          <label for="c-timeline">Expected timeline</label>
+          <span class="chev" aria-hidden="true">&#9662;</span>
+        </div>
+      </div>
+      <div class="field">
+        <textarea id="c-message" name="message" placeholder=" " required></textarea>
+        <label for="c-message">Tell us about your project</label>
+        <span class="err"></span>
+      </div>
+      <p class="field-help">Furniture requirements, approximate quantities, style,
+         materials or anything else we should know.</p>
+
+      <div class="dropzone">
+        <label class="dropzone-label" for="c-files">
+          <b>Attach your files</b>
+          <span>Architectural drawings &middot; BOQ &middot; Furniture schedule &middot; Reference images</span>
+        </label>
+        <input id="c-files" name="files" type="file" multiple
+               accept=".pdf,.dwg,.dxf,.xls,.xlsx,.csv,.doc,.docx,.jpg,.jpeg,.png,.webp,.heic,.zip">
+        <p class="dropzone-note" data-file-note>
+          This site has no server to receive uploads, so your email app will open —
+          attach the files you pick here to that message.
+        </p>
+      </div>
+
+      <div class="start-foot">
+        <button class="btn btn--solid" type="submit">Start your project <span class="btn__ico" aria-hidden="true">&rarr;</span></button>
+        <a class="btn btn--line" href="https://wa.me/94775579572" target="_blank" rel="noopener">Chat with us on WhatsApp</a>
+      </div>
+      <p class="form-status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <span class="site-logo site-logo--foot">
+          <svg class="logo" viewBox="0 0 232 104" role="img" aria-label="nu concepts">
+            <text class="logo-a" x="0" y="46">nu</text>
+            <circle class="logo-dot" cx="33" cy="12" r="5.2"/>
+            <circle class="logo-dot" cx="49" cy="12" r="5.2"/>
+            <text class="logo-b" x="0" y="96">concepts</text>
+          </svg>
+        </span>
+        <p>Furniture &amp; Interior Solutions &middot; Sri Lanka &middot; Est. 2018.
+           Designed, made and installed on the island.</p>
+      </div>
+      <div>
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#workshop">Workshop</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Projects</h4>
+        <ul>
+          <li><a href="projects/miss-ceylon.html">Miss Ceylon</a></li>
+          <li><a href="projects/angel-beach.html">Angel Beach</a></li>
+          <li><a href="projects/terrene-villas.html">Terrene Villas</a></li>
+          <li><a href="projects/abode-ahangama.html">Abode Ahangama</a></li>
+          <li><a href="projects/the-fort-printers.html">The Fort Printers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:sales@nuconceptstore.com">sales@nuconceptstore.com</a></li>
+          <li><a href="tel:+94775579572">+94 77 557 9572</a></li>
+          <li><a href="https://instagram.com/nuconcepts_store" target="_blank" rel="noopener">@nuconcepts_store</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span data-year>2026</span> NuConcepts</span>
+      <span>Island made. Designed, made and installed in Sri Lanka.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="Back to top"><span aria-hidden="true">&uarr;</span></button>
+
+<script src="site.js" defer></script>
+</body>
+</html>
