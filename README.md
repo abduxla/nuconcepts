@@ -75,6 +75,26 @@ Some content was written to fill the pages out and **needs checking by NuConcept
   headers. To use the real logo file instead, replace the `<span class="site-logo">…</span>`
   block with an `<img>` in `index.html` and in `tools/build-projects.mjs`.
 
+## The logo
+
+The header and footer carry the real NuConcepts mark — the two-line lowercase
+lockup, charcoal with green umlaut dots — but **drawn as live SVG text in
+Poppins, not the supplied artwork file.** It is a close recreation, matched
+from the logo image; it is not the original vector.
+
+Two consequences worth knowing:
+
+- the letterforms are Poppins, which is very close but not guaranteed to be
+  the typeface the logo was actually set in;
+- because it is live text it stays razor sharp at any size, recolours with the
+  header, and costs nothing to load.
+
+To use the genuine artwork instead, replace the inline `<svg class="logo">…
+</svg>` block with `<img class="logo" src="assets/images/logo.svg" alt="NuConcepts">`
+in `index.html` (header and footer) and in `tools/build-projects.mjs`, then
+re-run `node tools/build-projects.mjs`. The `.site-logo .logo` sizing rules
+already work for an `<img>`.
+
 ## The hero
 
 `assets/video/hero.mp4` is a slot, not a file. Drop a clip in and the hero

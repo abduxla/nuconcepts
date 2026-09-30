@@ -177,11 +177,6 @@ p:last-child{margin-bottom:0}
 }
 
 .site-logo{justify-self:start}
-.site-logo .wordmark{
-  font-family:var(--serif);font-size:clamp(23px,2vw,30px);font-weight:600;
-  letter-spacing:-.005em;text-transform:none;color:var(--ink);white-space:nowrap;
-}
-.site-logo .dot{color:var(--accent)}
 
 .main-nav{display:flex;align-items:center;gap:clamp(16px,2.2vw,38px);justify-self:center}
 .main-nav a{
@@ -639,3 +634,19 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
 @media (max-width:420px){
   .header-actions .icon-btn:nth-child(3){display:none}   /* phone lives in the menu */
 }
+
+/* ==========================================================================
+   18. WORDMARK
+   The real mark is a two-line lowercase geometric lockup, charcoal with green
+   umlaut dots. Drawn as live text so it stays crisp at any size and recolours
+   with the header; swap in the supplied file by replacing the <svg> with an
+   <img src="assets/images/logo.svg">.
+   ========================================================================== */
+.site-logo .logo{height:38px;width:auto;display:block;overflow:visible}
+.site-logo .logo text{
+  font-family:"Poppins",var(--sans);font-weight:600;font-size:50px;
+  letter-spacing:-.02em;fill:#3A3D42;
+}
+.site-logo .logo-dot{fill:var(--accent)}
+.site-logo--foot .logo{height:44px}
+@media (max-width:900px){ .site-logo .logo{height:32px} }
