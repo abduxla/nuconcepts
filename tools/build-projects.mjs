@@ -320,7 +320,7 @@ ${chrome()}
       <div><span>Type</span><b>${p.type}</b></div>
       <div><span>Location</span><b>${p.location}</b></div>
       <div><span>Year</span><b>${p.year}</b></div>
-      <div><span>Studio</span><b>NuConcepts</b></div>
+      <div><span>Studio</span><b class="brand">NuConcepts</b></div>
     </div>
   </div>
 </section>
