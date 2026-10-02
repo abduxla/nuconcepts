@@ -230,7 +230,7 @@ const footer = () => `<footer class="site-footer">
         <h4>Studio</h4>
         <ul>
           <li><a href="../index.html#about">About</a></li>
-          <li><a href="../index.html#workshop">Workshop</a></li>
+          <li><a href="../index.html#film">Workshop</a></li>
           <li><a href="../index.html#services">Services</a></li>
           <li><a href="../index.html#contact">Contact</a></li>
         </ul>
