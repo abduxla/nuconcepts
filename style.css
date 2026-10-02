@@ -457,6 +457,11 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
   transition:background var(--dur) var(--ease);
 }
 .film-close:hover{background:rgba(255,255,255,.28)}
+.film-out{
+  position:absolute;left:0;right:0;bottom:max(16px,env(safe-area-inset-bottom));
+  text-align:center;font-size:var(--t-sm);color:rgba(255,255,255,.62);
+}
+.film-out:hover{color:#fff}
 @media (max-width:760px){
   .film-inner{flex-direction:column;align-items:flex-start;gap:24px}
 }
