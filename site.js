@@ -513,6 +513,50 @@
   };
 
   /* ----------------------------------------------------------------------
+     Film
+     A facade. The homepage ships a still and a button; YouTube is only
+     fetched once someone actually asks to watch, and the iframe is torn
+     down on close so the audio cannot keep playing behind the page.
+     -------------------------------------------------------------------- */
+  const initFilm = () => {
+    const triggers = $$('[data-film]');
+    const box = $('.film-box');
+    if (!triggers.length || !box) return;
+    const frame = $('.film-frame', box);
+
+    const open = (id) => {
+      const src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id)
+        + '?autoplay=1&rel=0&playsinline=1';
+      const f = document.createElement('iframe');
+      f.src = src;
+      f.title = 'The art of making';
+      f.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture';
+      f.allowFullscreen = true;
+      frame.innerHTML = '';
+      frame.appendChild(f);
+      box.classList.add('is-on');
+      box.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('is-locked');
+    };
+    const close = () => {
+      box.classList.remove('is-on');
+      box.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('is-locked');
+      frame.innerHTML = '';
+    };
+
+    triggers.forEach((t) => t.addEventListener('click', (e) => {
+      e.preventDefault();
+      open(t.dataset.film);
+    }));
+    $$('.film-close', box).forEach((b) => b.addEventListener('click', close));
+    box.addEventListener('click', (e) => { if (e.target === box) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && box.classList.contains('is-on')) close();
+    });
+  };
+
+  /* ----------------------------------------------------------------------
      Search
      Small site, so the index is built from what is actually on the page —
      section headings, project cards and service rows — rather than shipping
@@ -623,6 +667,7 @@
     initForm();
     initSubscribe();
     initLightbox();
+    initFilm();
     initSearch();
     initSpy();
     initReveal();
