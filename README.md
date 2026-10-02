@@ -113,6 +113,21 @@ disables them.
 Keep any supplied clip short, muted, and compressed — 1080p, a few seconds,
 looping, ideally under about 5 MB. A raw phone video will wreck load time.
 
+## The workshop film — one thing to settle
+
+The homepage band plays `assets/video/story.*`, NuConcepts' own workshop film,
+served from this site.
+
+It is not on YouTube because YouTube **blocked** that upload under a copyright
+notice. The footage is NuConcepts' own, so the claim is almost certainly
+against the music bed, not the picture. Self-hosting sidesteps YouTube's
+detection but not the underlying licence: if the track is not licensed, it is
+no more licensed here.
+
+Check the notice in YouTube Studio. If it names the audio, swap the music for
+something licensed and re-encode, and the YouTube upload unblocks at the same
+time. The band itself needs no change — replace the files in place.
+
 ## Email sign-up — read this before promising updates
 
 There are two sign-up forms (a "Project notes" section above the footer, and a

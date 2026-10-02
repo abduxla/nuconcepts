@@ -420,10 +420,10 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
 /* A facade: the still and the play button are all that load until someone
    actually asks for the video. */
 .film{position:relative;overflow:hidden;background:var(--ink);color:#fff}
-.film-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.6}
+.film-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:1}
 .film::after{
   content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(90deg,rgba(10,10,10,.92),rgba(10,10,10,.55) 58%,rgba(10,10,10,.25));
+  background:linear-gradient(90deg,rgba(10,10,10,.88),rgba(10,10,10,.42) 56%,rgba(10,10,10,.08));
 }
 .film-inner{
   position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
@@ -449,8 +449,11 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
   opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s;
 }
 .film-box.is-on{opacity:1;visibility:visible}
-.film-frame{width:min(1100px,100%);aspect-ratio:16/9;background:#000}
-.film-frame video{width:100%;height:100%;display:block;object-fit:contain;background:#000}
+.film-frame{display:flex;max-width:100%}
+.film-video{
+  max-width:100%;max-height:min(86vh,960px);width:auto;height:auto;
+  display:block;background:#000;
+}
 .film-close{
   position:absolute;top:16px;right:18px;width:42px;height:42px;border:0;border-radius:50%;
   background:rgba(255,255,255,.14);color:#fff;font-size:26px;line-height:1;cursor:pointer;

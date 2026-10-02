@@ -22,22 +22,23 @@ and presented as a finished design rather than a grid of empty boxes.
 So: fine for an internal design review or a pitch where everyone knows the
 imagery is indicative. **Not fine on the live site.**
 
-## The film band clip is a placeholder too
+## The film band is REAL footage — not a placeholder
 
-`assets/video/workshop.webm` (1.2 MB) and `assets/video/workshop.mp4` (0.8 MB,
-for Safari and iOS) are a 9-second clip rendered the same way as the hero, from
-`assets/images/workshop.jpg`. The "Watch the story" band on the homepage plays
-it.
+`assets/video/story.mp4` / `story.webm` is NuConcepts' own workshop film:
+their team, their workshop, their drawings, with the nu concepts mark in the
+frame. The band still (`assets/images/story-band.jpg`) and the player poster
+(`assets/images/story-poster.jpg`) are frames taken from it.
 
-It exists because the YouTube link supplied for that band could not be used:
-the video is unlisted, its owner has embedding switched off (YouTube answers
-"Video unavailable" in a frame, verified from both localhost and the live
-site), and it belongs to a third-party channel rather than to NuConcepts.
+It came from `Wood Workshop Corrected.mp4`, a 419 MB 1080x1920 master at
+~47 Mbit/s, transcoded for the web: H.264 CRF 24 and VP9 CRF 34, audio at
+128k AAC / 96k Opus. SSIM against the master is 0.982, so the 23x size cut is
+not visible at the size it plays.
 
-Replace it with real workshop footage at the same two paths and the band picks
-it up with no code change. If NuConcepts would rather host on YouTube, the
-video needs "Allow embedding" turned on in its settings, and the band then
-needs the iframe player back.
+It is hosted on this site rather than YouTube because the YouTube upload is
+blocked by a copyright notice, which is why it would not play in a frame.
+The footage is NuConcepts' own, so the claim is almost certainly against the
+music on the soundtrack. Worth settling, because the same soundtrack is in
+the file served here: see the note in README.md.
 
 ## The hero clip is also a placeholder
 
