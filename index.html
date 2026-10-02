@@ -369,13 +369,12 @@ if (location.hostname.endsWith('github.io')) {
     <div class="film-copy" data-reveal="fade">
       <p class="eyebrow">The art of making</p>
       <h2>Furniture doesn&rsquo;t begin with the finished piece.</h2>
-      <!-- href is the real video, so this still works with no JS; the script
+      <!-- href is the clip itself, so this still works with no JS; the script
            upgrades it to an in-page player. -->
-      <p><a class="tlink" href="https://www.youtube.com/watch?v=j42zEcMbBgM"
-            data-film="j42zEcMbBgM" target="_blank" rel="noopener">Watch the story
+      <p><a class="tlink" href="assets/video/workshop.mp4" data-film>Watch the story
             <i aria-hidden="true">&rarr;</i></a></p>
     </div>
-    <button class="film-play" type="button" data-film="j42zEcMbBgM" aria-label="Play the film">
+    <button class="film-play" type="button" data-film aria-label="Play the film">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.9l12.3 7.1L8 19.1z" fill="currentColor"/></svg>
     </button>
   </div>
@@ -616,11 +615,11 @@ if (location.hostname.endsWith('github.io')) {
 <script src="site.js" defer></script>
 <div class="film-box" aria-hidden="true">
   <button class="film-close" type="button" aria-label="Close the film">&times;</button>
-  <div class="film-frame"></div>
-  <!-- YouTube refuses some embeds (owner setting, region, blocked third-party
-       frames). This link always works, so a blocked player is never a dead end. -->
-  <a class="film-out" href="https://www.youtube.com/watch?v=j42zEcMbBgM"
-     target="_blank" rel="noopener">Trouble playing? Open on YouTube &nearr;</a>
+  <div class="film-frame">
+    <video class="film-video" controls playsinline preload="none"
+           poster="assets/images/workshop.jpg"
+           data-film-src="assets/video/workshop.webm,assets/video/workshop.mp4"></video>
+  </div>
 </div>
 
 </body>

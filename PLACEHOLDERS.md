@@ -22,6 +22,23 @@ and presented as a finished design rather than a grid of empty boxes.
 So: fine for an internal design review or a pitch where everyone knows the
 imagery is indicative. **Not fine on the live site.**
 
+## The film band clip is a placeholder too
+
+`assets/video/workshop.webm` (1.2 MB) and `assets/video/workshop.mp4` (0.8 MB,
+for Safari and iOS) are a 9-second clip rendered the same way as the hero, from
+`assets/images/workshop.jpg`. The "Watch the story" band on the homepage plays
+it.
+
+It exists because the YouTube link supplied for that band could not be used:
+the video is unlisted, its owner has embedding switched off (YouTube answers
+"Video unavailable" in a frame, verified from both localhost and the live
+site), and it belongs to a third-party channel rather than to NuConcepts.
+
+Replace it with real workshop footage at the same two paths and the band picks
+it up with no code change. If NuConcepts would rather host on YouTube, the
+video needs "Allow embedding" turned on in its settings, and the band then
+needs the iframe player back.
+
 ## The hero clip is also a placeholder
 
 `assets/video/hero.webm` (2.2 MB, VP9) and `assets/video/hero.mp4` (1.0 MB,

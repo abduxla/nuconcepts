@@ -514,41 +514,48 @@
 
   /* ----------------------------------------------------------------------
      Film
-     A facade. The homepage ships a still and a button; YouTube is only
-     fetched once someone actually asks to watch, and the iframe is torn
-     down on close so the audio cannot keep playing behind the page.
+     The band ships a still and a button; the clip itself is only attached
+     once someone actually asks to watch, and playback is paused on close so
+     nothing keeps running behind the page.
      -------------------------------------------------------------------- */
   const initFilm = () => {
     const triggers = $$('[data-film]');
     const box = $('.film-box');
-    if (!triggers.length || !box) return;
-    const frame = $('.film-frame', box);
+    const video = $('.film-video');
+    if (!triggers.length || !box || !video) return;
 
-    const open = (id) => {
-      const src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id)
-        + '?autoplay=1&rel=0&playsinline=1';
-      const f = document.createElement('iframe');
-      f.src = src;
-      f.title = 'The art of making';
-      f.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture';
-      f.allowFullscreen = true;
-      frame.innerHTML = '';
-      frame.appendChild(f);
+    // Sources are attached on first open, so the clip is never fetched for a
+    // visitor who does not press play.
+    let armed = false;
+    const arm = () => {
+      if (armed) return;
+      armed = true;
+      (video.dataset.filmSrc || '').split(',').map((u) => u.trim()).filter(Boolean)
+        .forEach((u) => {
+          const src = document.createElement('source');
+          src.src = u;
+          src.type = u.toLowerCase().endsWith('.mp4') ? 'video/mp4' : 'video/webm';
+          video.appendChild(src);
+        });
+      video.load();
+    };
+
+    const open = () => {
+      arm();
       box.classList.add('is-on');
       box.setAttribute('aria-hidden', 'false');
       document.body.classList.add('is-locked');
+      const go = video.play();
+      if (go && go.catch) go.catch(() => {});   // controls are there either way
     };
     const close = () => {
+      video.pause();
       box.classList.remove('is-on');
       box.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('is-locked');
-      frame.innerHTML = '';
     };
 
-    triggers.forEach((t) => t.addEventListener('click', (e) => {
-      e.preventDefault();
-      open(t.dataset.film);
-    }));
+    triggers.forEach((t) => t.addEventListener('click', (e) => { e.preventDefault(); open(); }));
     $$('.film-close', box).forEach((b) => b.addEventListener('click', close));
     box.addEventListener('click', (e) => { if (e.target === box) close(); });
     document.addEventListener('keydown', (e) => {
