@@ -517,11 +517,6 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
 .detail-list a:hover{text-decoration:underline}
 
 /* 14. FOOTER ============================================================== */
-.foot-tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gutter);background:var(--stone);padding:clamp(20px,2.4vw,32px)}
-.foot-tile .media{width:100%;aspect-ratio:16/7}
-.foot-tile__label{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;font-weight:600;color:var(--ink)}
-.foot-tile__label i{font-style:normal;opacity:0;transform:translateX(-5px);transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease)}
-.foot-tile:hover .foot-tile__label i{opacity:1;transform:none}
 
 .site-footer{background:var(--white);padding:clamp(44px,5vw,76px) 0 22px;border-top:1px solid var(--line)}
 .foot-grid{display:grid;grid-template-columns:1.4fr .8fr .8fr 1.2fr;gap:clamp(24px,3vw,52px)}
@@ -620,8 +615,6 @@ body.nav-open .nav-overlay a.big:nth-child(5){transition-delay:.34s}
   .work-card .media{aspect-ratio:4/3}
   .steps{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr}
-  .foot-tiles{grid-template-columns:1fr}
-  .foot-tile .media{aspect-ratio:16/9}
 }
 
 @media (prefers-reduced-motion:reduce){
