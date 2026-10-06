@@ -22,6 +22,20 @@ and presented as a finished design rather than a grid of empty boxes.
 So: fine for an internal design review or a pitch where everyone knows the
 imagery is indicative. **Not fine on the live site.**
 
+## Otherlands, Adarya Villas and Uyana have no photography
+
+These three projects are listed but no photographs of them have been supplied.
+Their cards show `projects/pending-01..03.jpg` — frames taken from the
+workshop film, dimmed, captioned PHOTOGRAPHY COMING SOON.
+
+They are deliberately workshop scenes (timber on the bench, the tool rack, a
+panel going through the saw) rather than finished interiors, so that no one
+reads them as a photograph of the venue itself. None of the three has a
+detail page for the same reason.
+
+Replace them with real photographs of each project, then build the three
+pages out in tools/build-projects.mjs like the others.
+
 ## The film band is REAL footage — not a placeholder
 
 `assets/video/story.mp4` / `story.webm` is NuConcepts' own workshop film:
