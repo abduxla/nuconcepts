@@ -16,10 +16,10 @@ const PROJECTS = [
     slug: 'miss-ceylon',
     name: 'Miss Ceylon',
     type: 'Boutique Hotel',
-    location: 'Unawatuna',
+    location: 'Thalpe',
     year: '2024',
     hero: 'miss-ceylon-hero.jpg',
-    lead: 'A boutique hotel a few streets back from Unawatuna bay, furnished throughout in our Colombo workshop.',
+    lead: 'A boutique hotel a few streets back from the sea at Thalpe, furnished throughout in our Colombo workshop.',
     heading: 'A small hotel that reads as a house.',
     body: [
       'Miss Ceylon asked for guestrooms and public areas that felt residential rather than hotel-standard — pieces that look collected rather than specified, in a palette that carries sand and salt light without going washed out.',
@@ -58,13 +58,13 @@ const PROJECTS = [
     slug: 'terrene-villas',
     name: 'Terrene Villas',
     type: 'Private Villas',
-    location: 'Weligama &amp; Kabalana',
+    location: 'Weligama &amp; Ahangama',
     year: '2023',
     hero: 'terrene-villas-hero.jpg',
     lead: 'Two private villas on the south coast, furnished as a single coherent scheme across both sites.',
     heading: 'One scheme, two coastlines.',
     body: [
-      'Terrene runs villas at Weligama and Kabalana. The work here was to give both a shared identity without making them feel like the same building — a common language of timber, rattan and off-white plaster, resolved differently against each site.',
+      'Terrene runs villas at Weligama and Ahangama. The work here was to give both a shared identity without making them feel like the same building — a common language of timber, rattan and off-white plaster, resolved differently against each site.',
       'Interiors, bedroom and living furniture, dining and outdoor pieces were designed together and manufactured in one production run, which kept the finishes matched across both properties.',
       'Working on two sites at once also meant one delivery and installation programme, sequenced so neither villa sat half-furnished through a booking window.',
     ],
@@ -72,7 +72,7 @@ const PROJECTS = [
     scope: 'Bedrooms, living and dining, outdoor and pool areas',
     captions: [
       'Living area, Weligama', 'Bedroom and joinery', 'Dining and kitchen',
-      'Pool deck furniture', 'Bathroom detail', 'Villa at Kabalana',
+      'Pool deck furniture', 'Bathroom detail', 'Villa at Ahangama',
     ],
   },
   {
