@@ -150,7 +150,7 @@ p:last-child{margin-bottom:0}
    without the picture passing for a photograph of the place itself. */
 .media--pending::after{
   content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(180deg,rgba(22,19,16,.34),rgba(22,19,16,.34) 55%,rgba(22,19,16,.72));
+  background:linear-gradient(180deg,rgba(22,19,16,.12),rgba(22,19,16,.18) 52%,rgba(22,19,16,.74));
 }
 .media--pending::before{
   content:attr(data-label);position:absolute;z-index:2;left:0;right:0;bottom:0;

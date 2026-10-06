@@ -28,10 +28,10 @@ These three projects are listed but no photographs of them have been supplied.
 Their cards show `projects/pending-01..03.jpg` — frames taken from the
 workshop film, dimmed, captioned PHOTOGRAPHY COMING SOON.
 
-They are deliberately workshop scenes (timber on the bench, the tool rack, a
-panel going through the saw) rather than finished interiors, so that no one
-reads them as a photograph of the venue itself. None of the three has a
-detail page for the same reason.
+They are deliberately workshop scenes (a chair frame being assembled, a curved
+table top being marked out, a chair being worked on) rather than finished
+interiors, so that no one reads them as a photograph of the venue itself. None
+of the three has a detail page for the same reason.
 
 Replace them with real photographs of each project, then build the three
 pages out in tools/build-projects.mjs like the others.
