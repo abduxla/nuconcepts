@@ -19,6 +19,26 @@ Then in `index.html` swap each pending card over to a normal `work-card`:
 drop `media--pending` and its `data-label`, point the `<img>` at the new file,
 and give the card an `href` once a detail page exists.
 
+## Done 2026-10-06 — how these were actually run
+
+All three were generated on `z_image` via the Higgsfield MCP server and are in
+place; the `index.html` swap above is done. The cards are plain `work-card`
+`<div>`s with no `href`, because none of the three has a detail page yet.
+
+Two things to know before regenerating:
+
+- **`z_image` does not offer 4:5.** Its aspect ratios are 1:1, 4:3, 3:4, 16:9,
+  9:16. These were generated at **3:4** (1536x2048) and cropped to 1536x1920 —
+  exact 4:5, 1920 on the long edge, no upscaling — taking the 128px off the
+  **bottom**, which drops surplus floor and keeps the ceiling detail:
+
+      ffmpeg -i in.png -vf "crop=1536:1920:0:0" -q:v 3 out.jpg
+
+- **Submit them one at a time.** A parallel batch of three tripped a 429
+  `rate_limit_reached` on the free plan and only one of the three survived.
+
+Cost was 0.15 credits per image, 0.45 for the set.
+
 ---
 
 ## Shared style suffix

@@ -3,9 +3,11 @@
 **Read this before the site goes live on nuconceptstore.com, and before the
 preview link is forwarded to anyone outside NuConcepts.**
 
-All 37 images in `assets/images/` were generated with an AI image model
-(Higgsfield, `z_image`) on 2026-09-10. They exist so the layout can be reviewed
-and presented as a finished design rather than a grid of empty boxes.
+All 40 images in `assets/images/` were generated with an AI image model
+(Higgsfield, `z_image`) — 37 on 2026-09-10 and the three project cards for
+Otherlands, Adarya Villas and Uyana on 2026-10-06. They exist so the layout can
+be reviewed and presented as a finished design rather than a grid of empty
+boxes.
 
 ## What that means
 
@@ -22,16 +24,25 @@ and presented as a finished design rather than a grid of empty boxes.
 So: fine for an internal design review or a pitch where everyone knows the
 imagery is indicative. **Not fine on the live site.**
 
-## Otherlands, Adarya Villas and Uyana have no photography
+## Otherlands, Adarya Villas and Uyana still have no real photography
 
-These three projects are listed but no photographs of them have been supplied.
-Their cards show `projects/pending-01..03.jpg` — frames taken from the
-workshop film, dimmed, captioned PHOTOGRAPHY COMING SOON.
+No photographs of these three projects have ever been supplied. Until
+2026-10-06 their cards carried dimmed frames from the workshop film captioned
+PHOTOGRAPHY COMING SOON, deliberately chosen as workshop scenes so no one could
+read them as the venue itself.
 
-They are deliberately workshop scenes (a chair frame being assembled, a curved
-table top being marked out, a chair being worked on) rather than finished
-interiors, so that no one reads them as a photograph of the venue itself. None
-of the three has a detail page for the same reason.
+They now carry generated interiors instead — `otherlands-hero.jpg`,
+`adarya-villas-hero.jpg`, `uyana-hero.jpg`, from the prompts in
+`tools/image-prompts.md` — so the grid reads as finished.
+
+**This is a step away from the old frames, not towards the truth.** A dimmed
+workshop shot captioned PHOTOGRAPHY COMING SOON told the viewer it was not the
+venue. A photorealistic lounge does not: it presents as a photograph of
+Otherlands in Galle Fort, of Adarya Villas in Ahangama, of Uyana. It is not.
+These carry the same caveat as the other 37, and more urgently, because the
+caption that used to carry the disclaimer is gone.
+
+None of the three has a detail page.
 
 Replace them with real photographs of each project, then build the three
 pages out in tools/build-projects.mjs like the others.
@@ -95,7 +106,9 @@ No code changes needed.
 | `assets/images/projects/<slug>-06.jpg` | Gallery, half width | 4:3 |
 
 `<slug>` is one of `miss-ceylon`, `angel-beach`, `terrene-villas`,
-`abode-ahangama`, `the-fort-printers`.
+`abode-ahangama`, `the-fort-printers`, `otherlands`, `adarya-villas`, `uyana`.
+The last three currently have only a `-hero.jpg` (4:5, 1536x1920, the card
+ratio) and no gallery or detail page.
 
 Sizing: resize real photos to about **1920px on the long edge**, JPEG quality
 ~80. That is what the current set uses (~300KB each, ~12MB total). Anything
@@ -109,7 +122,7 @@ meant to show — update them to match the real photographs, then re-run
 
 Deleting an image does not break the page. `site.js` detects the missing file,
 hides the broken `<img>`, and the CSS falls back to a designed gradient panel
-labelled with that image's alt text. So you can delete all 37 of these and ship
+labelled with that image's alt text. So you can delete all 40 of these and ship
 real photos gradually.
 
 ## Also still to review
